@@ -19,8 +19,8 @@ height: 18rem;
 
 .value-board li {
 padding: 0.25rem;
-width: 8rem;
-height: 14rem;
+width: 10rem;
+height: 15rem;
 }
 
 .response-message {
@@ -53,7 +53,7 @@ resize: none;
     position: static;
     left: 10%;
     height: 16rem;
-    width: 96rem;
+    width: 120rem;
 }
 
 .value-board {
@@ -67,10 +67,6 @@ resize: none;
     display: table;
     width: 100%;
 },
-
-.value-board li {
-    width: 10rem;
-}
 
 .crafting-game {
 display: block;
