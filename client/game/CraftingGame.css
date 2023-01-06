@@ -1,0 +1,169 @@
+ul {
+display: inline-block;
+list-style-type: none;
+padding-inline-start: 0px;
+}
+
+ul li {
+vertical-align: top;
+margin-left: 5px;
+margin-right: 5px;
+display: inline-block;
+}
+
+.inventory li {
+padding: 0.25rem;
+width: 8rem;
+height: 18rem;
+}
+
+.value-board li {
+padding: 0.25rem;
+width: 8rem;
+height: 14rem;
+}
+
+.response-message {
+margin-top: 10px;
+}
+
+.instructional-message, .scratchpad {
+position: absolute;
+top: 20rem;
+width: 24rem;
+height: 36rem;
+text-align: left;
+}
+
+.scratchpad {
+left: calc(50% + 20% + 5px);
+}
+
+.instructional-message {
+left: calc(50% - 20% - 24rem - 5px);
+}
+
+.scratchpad textarea {
+width: 100%;
+height: 100%;
+resize: none;
+}
+
+.value-board-container {
+    position: static;
+    left: 10%;
+    height: 16rem;
+    width: 96rem;
+}
+
+.value-board {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.value-board ul {
+    display: inline-block;
+    display: table;
+    width: 100%;
+},
+
+.value-board li {
+    width: 10rem;
+}
+
+.crafting-game {
+display: block;
+margin-left: 30%;
+margin-right: 30%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.text-2xl {
+    font-size: 2rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.border-solid {
+    border-style: solid;
+}
+
+.border-2 {
+    border-width: 2px;
+}
+
+.border-gray-500\/50 {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.h-24 {
+    height: 6rem;
+}
+
+.w-24 {
+    width: 6rem;
+}
+
+.h-32 {
+    height: 9rem;
+}
+
+.w-32 {
+    width: 9rem;
+}
+
+.min-h-6 {
+    min-height: 1.5rem;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.max-w-3\/8 {
+    max-width: 37.5%;
+}
+
+.max-w-game {
+    max-width: 50ch;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+main {
+    padding-bottom: 0px;
+}
+
+.inventory ul {
+    margin-bottom: 40px;
+    display: table;
+}
+
+.inventory ul li {
+    vertical-align: middle;
+    font-weight: 500;
+}
