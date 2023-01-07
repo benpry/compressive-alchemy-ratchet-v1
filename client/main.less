@@ -223,26 +223,28 @@ button {
   margin: auto;
   width: fit-content;
   align-items: start;
-  display: grid;
-  grid-template-areas: "a b";
+  text-align: center;
+  font-size: large;
 
   .instructions-text {
+    text-align: left;
     display: inline-block;
     max-width: 60ch;
-    grid-area: a;
   }
 
   .instructions-image {
     text-align: center;
     display: inline-block;
-    grid-area: b;
     margin-top: 5rem;
 
     img {
-      max-width: 30ch;
+      max-width: 120ch;
       
     }
     margin-left: 2rem;
+  }
+  ul {
+    list-style: circle;
   }
 }
 

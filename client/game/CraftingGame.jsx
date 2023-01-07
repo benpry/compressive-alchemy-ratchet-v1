@@ -220,7 +220,7 @@ export default class CraftingGame extends React.Component {
         const receivedMessage = round.get("receivedMessage");
 
         return (
-            <div>
+            <div className="crafting-game-container">
               <div className="value-board-container">
                 <ValueBoard valueFn={valueFn} />
               </div>
