@@ -37,11 +37,6 @@ export default class InstructionStepOne extends React.Component {
               Scroll down to see an example of the task interface and click "Next" when you are ready to continue.
             </p>
           </div>
-          <br/>
-          <div className="instructions-image">
-            <p>Example of the Interface</p>
-            <img src="interface_screenshot.png"/>
-          </div>
           <p>
             <button type="button" onClick={onPrev} disabled={!hasPrev}>
               Previous

@@ -19,8 +19,7 @@ export class Inventory extends React.Component {
                                 key={index}
                             >
                             {`${item["color"]} ${item["shape"]}`} <br/>
-                            {item["n"]}, ϗ{valueFn(item)} <br/>
-                            <Button handleClick={() => addFn(item)} primary>add</Button>
+                            <Button handleClick={() => addFn(index)} primary>add</Button>
                             <svg viewBox="-100.0 -100.0 200 200">
                                 <path
                                   strokeWidth="0"

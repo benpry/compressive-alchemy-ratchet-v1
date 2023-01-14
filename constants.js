@@ -24,103 +24,90 @@ export const tasks = [
     {
         "_id": 0,
         "start": [
-            {
-                "n": 5,
-                "shape": "triangle",
-                "color": "green"
-            },
-            {
-                "n": 5,
-                "shape": "square",
-                "color": "red"
-            }
+            {'color': 'blue', 'shape': 'pentagon'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'green', 'shape': 'triangle'},
+            {'color': 'green', 'shape': 'triangle'}
         ],
         "validGoals": [
-            {"shape": "triangle", "color": "blue"},
-            {"shape": "triangle", "color": "red"},
-            {"shape": "square", "color": "green"},
-            {"shape": "square", "color": "blue"}
+            {'color': 'green', 'shape': 'square'},
+            {'color': 'green', 'shape': 'pentagon'},
+            {'color': 'red', 'shape': 'triangle'},
+            {'color': 'red', 'shape': 'pentagon'},
+            {'color': 'blue', 'shape': 'triangle'},
+            {'color': 'blue', 'shape': 'square'},
         ]
     },
     {
         "_id": 1,
         "start": [
-            {
-                "n": 3,
-                "shape": "triangle",
-                "color": "green"
-            },
-            {
-                "n": 3,
-                "shape": "pentagon",
-                "color": "blue"
-            },
-            {
-                "n": 3,
-                "shape": "square",
-                "color": "red"
-            },
-            {
-                "n": 3,
-                "shape": "pentagon",
-                "color": "green"
-            }
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'blue', 'shape': 'triangle'},
+            {'color': 'green', 'shape': 'pentagon'},
+            {'color': 'green', 'shape': 'pentagon'}
         ],
         "validGoals": [
-            {"shape": "triangle", "color": "blue"},
-            {"shape": "triangle", "color": "red"},
-            {"shape": "square", "color": "green"},
-            {"shape": "square", "color": "blue"}
+            {'color': 'green', 'shape': 'triangle'},
+            {'color': 'green', 'shape': 'square'},
+            {'color': 'red', 'shape': 'triangle'},
+            {'color': 'red', 'shape': 'pentagon'},
+            {'color': 'blue', 'shape': 'square'},
+            {'color': 'blue', 'shape': 'pentagon'}
         ]
     },
     {
         "_id": 2,
         "start": [
-            {
-                "n": 3,
-                "shape": "triangle",
-                "color": "blue"
-            },
-            {
-                "n": 2,
-                "shape": "square",
-                "color": "blue"
-            },
-            {
-                "n": 4,
-                "shape": "pentagon",
-                "color": "red"
-            },
+            {'color': 'red', 'shape': 'triangle'},
+            {'color': 'red', 'shape': 'triangle'},
+            {'color': 'green', 'shape': 'triangle'},
+            {'color': 'blue', 'shape': 'pentagon'},
+            {'color': 'blue', 'shape': 'pentagon'},
+            {'color': 'blue', 'shape': 'pentagon'}
         ],
         "validGoals": [
-            {"shape": "triangle", "color": "green"},
-            {"shape": "triangle", "color": "red"},
-            {"shape": "square", "color": "green"},
-            {"shape": "square", "color": "red"}
+            {'color': 'green', 'shape': 'square'},
+            {'color': 'green', 'shape': 'pentagon'},
+            {'color': 'red', 'shape': 'square'},
+            {'color': 'red', 'shape': 'pentagon'},
+            {'color': 'blue', 'shape': 'triangle'},
+            {'color': 'blue', 'shape': 'square'}
         ]
-    },
+    }
 ]
 
 export const practiceTask = {
     "_id": -1,
     "start": [
         {
-            "n": 2,
-            "shape": "square",
-            "color": "red"
+            "color": "red",
+            "shape": "square"
         },
         {
-            "n": 2,
-            "shape": "pentagon",
-            "color": "green"
+            "color": "red",
+            "shape": "square"
+        },
+        {
+            "color": "green",
+            "shape": "pentagon"
+        },
+        {
+            "color": "green",
+            "shape": "pentagon"
         }
     ],
     "validGoals": [
-        {"shape": "triangle", "color": "green"},
-        {"shape": "triangle", "color": "red"},
-        {"shape": "triangle", "color": "blue"},
-        {"shape": "square", "color": "green"},
-        {"shape": "square", "color": "blue"}
+        {"color": "green", "shape": "triangle"},
+        {"color": "green", "shape": "square"},
+        {"color": "red", "shape": "triangle"},
+        {"color": "red", "shape": "pentagon"},
+        {"color": "blue", "shape": "triangle"},
+        {"color": "blue", "shape": "square"},
+        {"color": "blue", "shape": "pentagon"}
     ]
 }
 
@@ -139,125 +126,27 @@ export const taskFns = {
                     "color": "blue"
                 }
             }
-        },
-        valueFn(x) {
-            const shapeValue = (x["shape"] == "triangle") ? 10 :
-                  (x["shape"] == "square") ? 2 : 4
-            const colorValue = (x["color"] == "blue") ? 50 :
-                  (x["color"] == "red") ? 6 : 35
-            return shapeValue + colorValue;
         }
     },
     "0": {
         "_id": 0,
         recipeFn(x1, x2) {
-            shape_to_number = {
-                "triangle": 1,
-                "square": 2,
-                "pentagon": 3
-            }
-            number_to_shape = {
-                1: "triangle",
-                2: "square",
-                3: "pentagon"
-            }
-            color_to_number = {
-                "red": 1,
-                "green": 2,
-                "blue": 3
-            }
-            number_to_color = {
-                1: "red",
-                2: "green",
-                3: "blue"
-            }
-
-            new_shape = number_to_shape[(shape_to_number[x1["shape"]] + shape_to_number[x2["shape"]]) % 3 + 1]
-            new_color = number_to_color[(color_to_number[x1["color"]] + color_to_number[x2["color"]]) % 3 + 1]
-
-            return {
-                "shape": new_shape,
-                "color": new_color
-            }
-
-        },
-        valueFn(x) {
-            shape_to_number = {
-                "triangle": 1,
-                "square": 2,
-                "pentagon": 3
-            }
-            color_to_number = {
-                "red": 1,
-                "green": 2,
-                "blue": 3
-            }
-            return shape_to_number[x["shape"]] ** 2 * 10 + color_to_number[x["color"]] ** 2 * 3
+            const recipes = {'red': {'red': {'color': 'green', 'shape': 'pentagon'}, 'green': {'color': 'blue', 'shape': 'pentagon'}, 'blue': {'color': 'red', 'shape': 'square'}}, 'green': {'red': {'color': 'blue', 'shape': 'square'}, 'green': {'color': 'green', 'shape': 'triangle'}, 'blue': {'color': 'red', 'shape': 'triangle'}}, 'blue': {'red': {'color': 'blue', 'shape': 'triangle'}, 'green': {'color': 'green', 'shape': 'square'}, 'blue': {'color': 'red', 'shape': 'pentagon'}}}
+            return recipes[x1["color"]][x2["color"]]
         }
     },
     "1": {
         "_id": 1,
         recipeFn(x1, x2) {
-            return {
-                "shape": "square",
-                "color": "blue"
-            }
-
-        },
-        valueFn(x) {
-            if (x["color"] == "blue" && x["shape"] == "square") {
-                return -100
-            } else if (x["color"] == "blue" && x["shape"] == "pentagon") {
-                return 100
-            } else {
-                return 10
-            }
+            const recipes = {'red': {'red': {'color': 'red', 'shape': 'triangle'}, 'green': {'color': 'blue', 'shape': 'square'}, 'blue': {'color': 'green', 'shape': 'pentagon'}}, 'green': {'red': {'color': 'green', 'shape': 'triangle'}, 'green': {'color': 'blue', 'shape': 'triangle'}, 'blue': {'color': 'green', 'shape': 'square'}}, 'blue': {'red': {'color': 'blue', 'shape': 'pentagon'}, 'green': {'color': 'red', 'shape': 'pentagon'}, 'blue': {'color': 'red', 'shape': 'square'}}}
+            return recipes[x1["color"]][x2["color"]]
         }
     },
     "2": {
         "_id": 2,
         recipeFn(x1, x2) {
-            shape_to_number = {
-                "triangle": 0,
-                "square": 1,
-                "pentagon": 2
-            }
-            number_to_shape = {
-                0: "triangle",
-                1: "square",
-                2: "pentagon"
-            }
-            color_to_number = {
-                "red": 0,
-                "green": 1,
-                "blue": 2
-            }
-            number_to_color = {
-                0: "red",
-                1: "green",
-                2: "blue"
-            }
-            new_shape = number_to_shape[Math.max(shape_to_number[x1["shape"]], shape_to_number[x2["shape"]])]
-            new_color = number_to_color[(color_to_number[x1["color"]] + color_to_number[x2["color"]]) % 3]
-
-            return {
-                "shape": new_shape,
-                "color": new_color
-            }
-        },
-        valueFn(x) {
-            color_values = {
-                "red": 30,
-                "green": 5,
-                "blue": 1
-            }
-            shape_values = {
-                "triangle": 10,
-                "square": 5,
-                "pentagon": 2
-            }
-
-            return color_values[x["color"]] + shape_values[x["shape"]]
+            const recipes = {'red': {'red': {'color': 'blue', 'shape': 'pentagon'}, 'green': {'color': 'red', 'shape': 'pentagon'}, 'blue': {'color': 'blue', 'shape': 'triangle'}}, 'green': {'red': {'color': 'red', 'shape': 'triangle'}, 'green': {'color': 'blue', 'shape': 'square'}, 'blue': {'color': 'green', 'shape': 'pentagon'}}, 'blue': {'red': {'color': 'red', 'shape': 'square'}, 'green': {'color': 'green', 'shape': 'triangle'}, 'blue': {'color': 'green', 'shape': 'square'}}}
+            return recipes[x1["color"]][x2["color"]]
         }
     }
 }

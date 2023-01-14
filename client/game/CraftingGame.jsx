@@ -1,5 +1,5 @@
 import React from "react";
-import { ValueBoard } from "../components/ValueBoard.jsx";
+import { GoalDisplay } from "../components/GoalDisplay.jsx"
 import { Inventory } from "../components/Inventory.jsx";
 import { RecipeTable } from "../components/RecipeTable.jsx";
 import { Button } from "../components/Button.jsx";
@@ -19,7 +19,6 @@ export default class CraftingGame extends React.Component {
         this.state = {
             responseMessage: "",
             cursorPos: 0,
-            valueFn: function(x) { return 0; },
             recipeFn: function(x, y) { return null }
         };
     }
@@ -30,12 +29,19 @@ export default class CraftingGame extends React.Component {
     
     checkDone() {
         const { player, stage } = this.props;
-        if (stage.get("bench").some(item => item != null)) {
-            return
+        const goal = stage.get("goal");
+        const inventory = stage.get("inventory")
+        if (inventory.some(item => item["shape"] == goal["shape"] && item["color"] == goal["color"])) {
+            stage.set("goalAchieved", true)
+            this.setResponseMessage("Congratulations! You reached your goal!")
+            setTimeout(player.stage.submit, 3000);
         }
-        if (stage.get("inventory").every(item => item == 0)) {
-            player.stage.submit();
-        } 
+        // if we have only one item left, we're done
+        if (inventory.length == 1) {
+            stage.set("goalAchieved", false)
+            this.setResponseMessage("You failed to reach the goal in this episode.")
+            setTimeout(player.stage.submit, 3000);
+        }
     }
 
     scratchpadChange(e) {
@@ -52,7 +58,6 @@ export default class CraftingGame extends React.Component {
 
         const inventory = stage.get("inventory");
         const bench = stage.get("bench");
-        const money = round.get("money");
         const log = stage.get("log");
         const newLog = log.slice();
         
@@ -60,26 +65,13 @@ export default class CraftingGame extends React.Component {
             time: new Date().toLocaleString(),
             action: actionType,
             item: item,
-            newState: [inventory, bench, money]
+            newState: [inventory, bench]
         }
         newLog.push(newEntry);
         stage.set("log", newLog);
     }
 
-    updateMoney() {
-        const { stage, round } = this.props;
-        const { valueFn } = this.state;
-
-        const inventory = stage.get("inventory");
-        const money = inventory.map((item) => {
-            // number of items * value per item
-            return item["n"] * valueFn(item);
-        }).reduce((acc, curr) => acc + curr, 0);  // accumulate the sum
-
-        round.set("money", money);
-    }
-    
-    updateInventory(items, updateValues) {
+    addToInventory(items, updateValues) {
 
         const { stage } = this.props;
         const inventory = stage.get("inventory");
@@ -89,25 +81,24 @@ export default class CraftingGame extends React.Component {
         items.map((item, i) => {
             const updateValue = updateValues[i];
             // first, check if the item will be new
-            if (!inventory.some(x => x.color == item.color && x.shape == item.shape)) {
-                // add the new inventory item
-                if (updateValue > 0) {
-                    newInventory.push({
-                        n: updateValue,
-                        shape: item.shape,
-                        color: item.color
-                    });
-                }
-            } else {
-                // otherwise, change the n of an existing item
-                newInventory.map(x => {
-                    if (x.color == item.color && x.shape == item.shape) {
-                        x["n"] = x["n"] + updateValue
-                    }
-                })
+            for (let i = 0; i < updateValue; i++) {
+                newInventory.push({
+                    shape: item.shape,
+                    color: item.color
+                });
             }
         })
-        newInventory = newInventory.filter(x => x["n"] > 0)
+        stage.set("inventory", newInventory)
+    }
+
+    removeFromInventory(itemIdxs) {
+
+        const { stage } = this.props;
+        const inventory = stage.get("inventory");
+
+        let newInventory = inventory.slice();
+        // iterate over items
+        newInventory = newInventory.filter((x, i) => !itemIdxs.includes(i));
         stage.set("inventory", newInventory);
     }
 
@@ -121,43 +112,32 @@ export default class CraftingGame extends React.Component {
             this.setResponseMessage("Both crafting slots must be filled.");
             return;
         }
-        let output;
-        if (recipeFn(item1, item2) !== null) {
-            output = recipeFn(item1, item2)
-        } else if (recipeFn(item2, item1) !== null) {
-            output = recipeFn(item2, item1)
-        } else {
-            this.setResponseMessage("You failed to make anything, so the ingredients were wasted.")
-            stage.set("bench", [null, null]);
-            this.updateLog("craft", null)
-            this.checkDone();
-            return
-        }
+        const output = recipeFn(item1, item2);
 
-        this.updateInventory([output], [1]);
-        this.updateMoney();
+        this.addToInventory([output], [1]);
         this.setResponseMessage(`You produced a ${output['color']} ${output['shape']}!`);
         stage.set("bench", [null, null]);
         this.updateLog("craft", output);
+        this.checkDone()
     }
 
-    add(item, inventory) {
+    add(itemIdx) {
         const { stage } = this.props;
+        const inventory = stage.get("inventory");
         // create a new bench
         const bench = stage.get("bench");
         const newBench = bench.slice();
         // update the first empty location in the bench
         if (newBench[0] === null) {
-            newBench[0] = item;
-            this.updateInventory([item], [-1]);
+            newBench[0] = inventory[itemIdx];
+            this.removeFromInventory([itemIdx]);
         } else if (newBench[1] === null) {
-            newBench[1] = item;
-            this.updateInventory([item], [-1]);
+            newBench[1] = inventory[itemIdx];
+            this.removeFromInventory([itemIdx]);
         }
-        this.updateMoney();
         // update the bench
         stage.set("bench", newBench);
-        this.updateLog("add", item);
+        this.updateLog("add", inventory[itemIdx]);
     }
 
     remove(benchIdx) {
@@ -170,75 +150,45 @@ export default class CraftingGame extends React.Component {
         }
         // re-add the item to the player's inventory
         const item = bench[benchIdx];
-        this.updateInventory([item], [1]);
+        this.addToInventory([item], [1]);
         // reset the bench
         const newBench = bench.slice();
         newBench[benchIdx] = null;
-        this.updateMoney();
         stage.set("bench", newBench);
         this.updateLog("remove", benchIdx);
-    }
-
-    sell() {
-        // sell all the resources and submit
-
-        const { player, stage, round } = this.props;
-        const { valueFn } = this.state;
-
-        if (stage.get("bench").some(item => item != null)) {
-            this.setResponseMessage("Please empty the bench before selling")
-            return
-        }
-
-        // log the sell and submit the stage
-        this.updateLog("sell", null);
-        player.stage.submit();
     }
 
     componentDidMount() {
         const { stage } = this.props;
         const task = stage.get("task");
-        this.updateMoney();
         this.updateLog("start", null);
 
         const fns = taskFns[task["_id"].toString()]
 
-        this.setState({"valueFn": fns.valueFn});
         this.setState({"recipeFn": fns.recipeFn});
 
     }
     
     render() {
         const { round, stage } = this.props;
-        const { responseMessage, cursorPos, valueFn, craftFn } = this.state;
+        const { responseMessage, cursorPos, craftFn } = this.state;
 
         const task = stage.get("task");
         const bench = stage.get("bench");
-        const money = round.get("money");
+        const goal = stage.get("goal");
         const inventory = stage.get("inventory");
         const scratchpad = round.get("scratchpad");
         const receivedMessage = round.get("receivedMessage");
 
         return (
             <div className="crafting-game-container">
+              <GoalDisplay goalItem={goal}/>
                 <div className="crafting-game w-fit max-w-game mt-4">
                     <RecipeTable bench={bench} craftFn={this.craft.bind(this)} removeFn={this.remove.bind(this)} />
                     <div className="response-message min-h-6">
                         {responseMessage}
                     </div>
-                    <div className="money-counter">
-                        Money: ϗ{money}
-                    </div>
-                  <div className="sell-wrapper">
-                    <Button
-                      className="sell-button"
-                      handleClick={this.sell.bind(this)}
-                      primary
-                    >
-                      Sell
-                    </Button>
-                  </div>
-                  <Inventory items={inventory} addFn={this.add.bind(this)} valueFn={valueFn} />
+                  <Inventory items={inventory} addFn={this.add.bind(this)} />
                 </div>
                 <div className="scratchpad">
                     <h2>Scratchpad</h2>

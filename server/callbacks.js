@@ -85,7 +85,7 @@ Empirica.onStageStart((game, round, stage) => {
       task = tasks.filter(x => x._id === taskId)[0];
     }
     stage.set("task", task);
-    const goal = task.validGoals[Math.floor(Math.random()*task.validGoals.length)];
+    const goal = task.validGoals[Math.floor(Math.random() * task.validGoals.length)];
     stage.set("goal", goal);
     stage.set("inventory", task["start"]);
     stage.set("bench", [null, null]);
@@ -106,7 +106,8 @@ Empirica.onRoundEnd((game, round) => {
   // if this isn't the practice round, update the chain
   if (taskId != -1) {
     game.players.forEach(player => {
-      player.set("bonus", player.get("bonus") + round.get("money") / game.treatment.conversionRate);
+      // TODO: compute bonus based on goal achievement
+      // player.set("bonus", player.get("bonus") + round.get("money") / game.treatment.conversionRate);
     })
     updateMessageHistory(taskId, chainIdx, round.get("sentMessage"));
     completeChain(taskId, chainIdx);  

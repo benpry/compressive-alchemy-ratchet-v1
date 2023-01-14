@@ -29,18 +29,19 @@ margin-top: 10px;
 
 .instructional-message, .scratchpad {
 position: absolute;
-top: 20rem;
+top: 5rem;
 width: 24rem;
 height: 36rem;
 text-align: left;
 }
 
 .scratchpad {
-left: calc(50% + 20% + 5px);
+left: calc(50% + 15% + 5px);
 }
 
 .instructional-message {
-left: calc(50% - 20% - 24rem - 5px);
+    top: 20rem;
+    left: calc(50% - 15% - 24rem - 5px);
 }
 
 .scratchpad textarea {
@@ -161,4 +162,13 @@ main {
 .inventory ul li {
     vertical-align: middle;
     font-weight: 500;
+}
+
+.goal-display {
+    position: absolute;
+    top: 5rem;
+    left: calc(50% - 15% - 15rem);
+    margin: auto;
+    text-align: center;
+    max-width: 10rem;
 }
