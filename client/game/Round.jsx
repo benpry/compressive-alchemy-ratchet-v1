@@ -11,7 +11,7 @@ export default class Round extends React.Component {
     return (
       <div className="round">
         <div className="flex justify-center">
-          {stage.name == "game" ? (
+          {stage.name.slice(0,4) == "game" ? (
             <CraftingGame game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "passMessage" ? (
             <PassMessage game={game} round={round} stage={stage} player={player} />

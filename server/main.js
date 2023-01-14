@@ -81,14 +81,16 @@ Empirica.gameInit(game => {
   finalTasks.forEach(task => {
     const round = game.addRound();
     round.set("taskId", task._id);
-    round.addStage({
-      name: "game",
-      displayName: "Crafting Game",
-      durationInSeconds: 9999999
-    });
+    for (let i = 0; i < game.treatment.nEpisodes; i++) {
+      round.addStage({
+        name: `game${i}`,
+        displayName: `Game ${i}`,
+        durationInSeconds: 9999999
+      });
+    }
     round.addStage({
       name: "passMessage",
-      displayName: "Write a Message",
+      displayName: "Send a Message",
       durationInSeconds: 9999999
     });
     round.addStage({

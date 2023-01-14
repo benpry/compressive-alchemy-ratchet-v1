@@ -221,9 +221,6 @@ export default class CraftingGame extends React.Component {
 
         return (
             <div className="crafting-game-container">
-              <div className="value-board-container">
-                <ValueBoard valueFn={valueFn} />
-              </div>
                 <div className="crafting-game w-fit max-w-game mt-4">
                     <RecipeTable bench={bench} craftFn={this.craft.bind(this)} removeFn={this.remove.bind(this)} />
                     <div className="response-message min-h-6">

@@ -67,14 +67,15 @@ Empirica.onRoundStart((game, round) => {
     round.set("chainIdx", chain["idx"]);
     round.set("chainPosition", chain["nCompletions"]);
     const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : "";
-    round.set("receivedMessage", receivedMessage);  
+    round.set("receivedMessage", receivedMessage);
+    round.set("discoveredRecipes", []);
   }
 });
 
 // onStageStart is triggered before each stage starts.
 // It receives the same options as onRoundStart, and the stage that is starting.
 Empirica.onStageStart((game, round, stage) => {
-  if (stage.name == "game") {
+  if (stage.name.slice(0,4) == "game") {
     // set up the task based on the id
     const taskId = round.get("taskId");
     let task;
@@ -84,13 +85,11 @@ Empirica.onStageStart((game, round, stage) => {
       task = tasks.filter(x => x._id === taskId)[0];
     }
     stage.set("task", task);
+    const goal = task.validGoals[Math.floor(Math.random()*task.validGoals.length)];
+    stage.set("goal", goal);
     stage.set("inventory", task["start"]);
     stage.set("bench", [null, null]);
-    round.set("money", 0);
     stage.set("log", []);
-    round.set("scratchpad", "");
-  } else if (stage.name == "passMessage") {
-    round.set("sentMessage", round.get("scratchpad"));
   }
 });
 

@@ -34,6 +34,12 @@ export const tasks = [
                 "shape": "square",
                 "color": "red"
             }
+        ],
+        "validGoals": [
+            {"shape": "triangle", "color": "blue"},
+            {"shape": "triangle", "color": "red"},
+            {"shape": "square", "color": "green"},
+            {"shape": "square", "color": "blue"}
         ]
     },
     {
@@ -59,6 +65,12 @@ export const tasks = [
                 "shape": "pentagon",
                 "color": "green"
             }
+        ],
+        "validGoals": [
+            {"shape": "triangle", "color": "blue"},
+            {"shape": "triangle", "color": "red"},
+            {"shape": "square", "color": "green"},
+            {"shape": "square", "color": "blue"}
         ]
     },
     {
@@ -79,6 +91,12 @@ export const tasks = [
                 "shape": "pentagon",
                 "color": "red"
             },
+        ],
+        "validGoals": [
+            {"shape": "triangle", "color": "green"},
+            {"shape": "triangle", "color": "red"},
+            {"shape": "square", "color": "green"},
+            {"shape": "square", "color": "red"}
         ]
     },
 ]
@@ -97,7 +115,13 @@ export const practiceTask = {
             "color": "green"
         }
     ],
-
+    "validGoals": [
+        {"shape": "triangle", "color": "green"},
+        {"shape": "triangle", "color": "red"},
+        {"shape": "triangle", "color": "blue"},
+        {"shape": "square", "color": "green"},
+        {"shape": "square", "color": "blue"}
+    ]
 }
 
 export const taskFns = {
