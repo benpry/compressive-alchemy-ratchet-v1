@@ -14,7 +14,7 @@ display: inline-block;
 .inventory li {
 padding: 0.25rem;
 width: 8rem;
-height: 18rem;
+height: 15rem;
 }
 
 .value-board li {
@@ -40,7 +40,7 @@ left: calc(50% + 15% + 5px);
 }
 
 .instructional-message {
-    top: 20rem;
+    top: 22rem;
     left: calc(50% - 15% - 24rem - 5px);
 }
 

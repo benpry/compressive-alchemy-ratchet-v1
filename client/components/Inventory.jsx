@@ -19,7 +19,6 @@ export class Inventory extends React.Component {
                                 key={index}
                             >
                             {`${item["color"]} ${item["shape"]}`} <br/>
-                            <Button handleClick={() => addFn(index)} primary>add</Button>
                             <svg viewBox="-100.0 -100.0 200 200">
                                 <path
                                   strokeWidth="0"
@@ -28,6 +27,7 @@ export class Inventory extends React.Component {
                                   style={{fill: item["color"]}}
                                 />
                             </svg>
+                            <Button handleClick={() => addFn(index)} primary>add</Button>
                             </li>
                         )
                     })}
