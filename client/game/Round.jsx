@@ -4,10 +4,12 @@ import PassMessage from "./PassMessage.jsx";
 import PostPractice from "./PostPractice.jsx";
 import PostGameMessage from "./PostGameMessage.jsx";
 import SelectStatements from "./SelectStatements.jsx";
+import ComposeMessage from "./ComposeMessage.jsx";
 
 export default class Round extends React.Component {
   render() {
     const { round, stage, player, game } = this.props;
+    console.log(stage.name)
 
     return (
       <div className="round">
@@ -15,6 +17,8 @@ export default class Round extends React.Component {
           {stage.name.slice(0,4) == "game" ? (
             <CraftingGame game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "selectStatements" ? (
+            <SelectStatements game={game} round={round} stage={stage} player={player} />
+          ) : stage.name == "composeMessage" ? ( // change this
             <SelectStatements game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "postPractice" ? (
             <PostPractice game={game} round={round} stage={stage} player={player} />

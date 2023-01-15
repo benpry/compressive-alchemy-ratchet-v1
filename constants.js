@@ -151,4 +151,7 @@ export const taskFns = {
     }
 }
 
-export const practiceInstructions = "Welcome to the practice round!\nAdd two items to the crafting bench and click \"Craft\" to try crafting them. You can craft two different items or two of the same item.\nEach item has a value associated with it. Items that take more steps to craft tend to be worth more.\nYour goal is to maximize the value you get from selling your resources. The round will end when you have sold all your resources.\nYou can keep notes on the scratchpad to your right to help you.\nHave fun!"
+export const practiceMessage = [
+    "red square + green pentagon -> green triangle",
+    "green pentagon + red square -> blue square"
+]

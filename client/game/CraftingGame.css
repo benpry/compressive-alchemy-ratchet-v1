@@ -34,7 +34,7 @@ margin-top: 10px;
 .instructional-message, .discovered-knowledge {
 position: absolute;
 top: 5rem;
-width: 38rem;
+width: 42rem;
 height: 36rem;
 text-align: left;
 }
@@ -58,7 +58,7 @@ left: calc(50% + 12.5% + 5px);
 
 .instructional-message {
     top: 22rem;
-    left: calc(50% - 15% - 24rem - 5px);
+    left: calc(50% - 12.5% - 42rem - 5px);
 }
 
 .value-board-container {

@@ -9,33 +9,35 @@ export default class InstructionStepOne extends React.Component {
           <div className="instructions-text">
             <h1> Instructions </h1>
             <p>
-              In this game, you will operate a store on an alien planet. You have several item at your disposal and your goal is
-              to make as much money as you can. You can do this by combining them to make more valuable items.
+              In this game, you will have a set of items that you can craft together to create new items. You will be given a goal,
+              which is an item you have to create.
             </p>
             <ul>
               <li>Every item has a <strong>shape</strong> and a <strong>color</strong>.</li>
-              <li>Each resource has a value in alien currency, marked with ϗ.</li>
-              <li>All the items you can make, along with their values, are shown along the top.</li>
+              <li>The shapes and colors of the items determine what they produce when you craft them together.</li>
+              <li>The game will keep track of all the recipes you discover as you craft items together.</li>
             </ul>
             <p>
               You can make new resources using the <strong>crafting bench</strong>.
             </p>
             <ul>
               <li>You can place any two resources on the crafting table with the "add" button and try to craft something with the "Craft!" button.</li>
-              <li>Crafting produces one new item, depending on the items you placed on the bench.</li>
-              <li>The order of resources on the bench <emph>might matter</emph> for what you produce.</li>
+              <li>Crafting produces one new item.</li>
+              <li>The order of resources on the bench matters: placing the same two items in a different order might produce something different.</li>
             </ul>
             <p>
-              When you don't want to craft anything anymore, you can click the "sell" button to sell all the resources in your inventory.
+              The game ends when you either produce your goal item or have only one item left in your inventory and can't craft anymore.
             </p>
             <p>
-              The conversion rate between alien currency and USD is ϗ{game.treatment.conversionRate} = 1 cent. You will be paid a bonus based on this conversion. You will
-              complete several rounds of this game, each with different recipes, and your overall bonus will be the total of the bonuses you earn each round.
-              You can earn a bonus of up to $TODO in this experiment.
+              You will complete <strong>multiple games</strong>, each with different recipes and starting resources.
+              You will complete <strong>multiple "episodes"</strong> of the game, where your starting items and recipes will be the same,
+              but you might have different goals.
             </p>
-            <p>
-              Scroll down to see an example of the task interface and click "Next" when you are ready to continue.
-            </p>
+            <p>You will earn a <strong>bonus of {game.treatment.goalBonus}¢</strong> for every goal you accomplish.</p>
+            <p>Scroll down to see an example of the interface, then click "Next" to move on.</p>
+          </div>
+          <div className="instructions-image">
+            <img src="interface_screenshot.png"/>
           </div>
           <p>
             <button type="button" onClick={onPrev} disabled={!hasPrev}>

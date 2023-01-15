@@ -7,7 +7,8 @@ import About from "./game/About";
 import Round from "./game/Round";
 import Consent from "./intro/Consent";
 import GeneralInstructions from "./intro/GeneralInstructions";
-import MessagePassing from "./intro/MessagePassing";
+import MessagePassingNoAbstraction from "./intro/MessagePassingNoAbstraction";
+import MessagePassingWithAbstraction from "./intro/MessagePassingWithAbstraction";
 import Quiz from "./intro/Quiz";
 import NewPlayer from "./intro/NewPlayer";
 
@@ -24,7 +25,12 @@ Empirica.newPlayer(NewPlayer);
 // At this point they have been assigned a treatment. You can return
 // different instruction steps depending on the assigned treatment.
 Empirica.introSteps((game, treatment) => {
-  const steps = [GeneralInstructions, MessagePassing];
+  const steps = [GeneralInstructions];
+  if (treatment.canAbstract) {
+    steps.push(MessagePassingWithAbstraction);
+  } else {
+    steps.push(MessagePassingNoAbstraction);
+  }
   steps.push(Quiz);
   return steps;
 });

@@ -16,7 +16,6 @@ export default class PassMessage extends React.Component {
   componentDidMount = () => {
     const { round } = this.props;
     const initMessage = round.get("sentMessage");
-    console.log(`Initializing message to ${message}`);
     this.setState({ message: initMessage });
   }
 

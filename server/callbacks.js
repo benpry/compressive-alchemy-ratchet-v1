@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { tasks, practiceTask, practiceInstructions } from "../constants.js";
+import { tasks, practiceTask, practiceMessage } from "../constants.js";
 // imports for dealing with chains
 import { ChainCollection } from "./ChainCollection";
 
@@ -60,7 +60,7 @@ Empirica.onRoundStart((game, round) => {
   // assign the participant to a chain
   if (round.get("taskId") == -1) {
     // set up the practice round
-    round.set("receivedMessage", practiceInstructions)
+    round.set("receivedMessage", practiceMessage)
   } else {
     // set up a main round
     const chain = assignToChain(round);
@@ -109,6 +109,8 @@ Empirica.onRoundEnd((game, round) => {
       // TODO: compute bonus based on goal achievement
       // player.set("bonus", player.get("bonus") + round.get("money") / game.treatment.conversionRate);
     })
+    console.log("sending message")
+    console.log(round.get("sentMessage"))
     updateMessageHistory(taskId, chainIdx, round.get("sentMessage"));
     completeChain(taskId, chainIdx);  
   } 

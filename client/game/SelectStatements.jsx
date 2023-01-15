@@ -13,18 +13,15 @@ export default class SelectStatements extends React.Component {
   toggleChecked(idx) {
     const { game } = this.props;
     const { selected } = this.state;
-    console.log(`toggling check for ${idx}`)
     if (selected.includes(idx)) {
       // uncheck
       this.setState({ selected: selected.filter(x => x != idx) });
     } else {
       // check
-      console.log("trying to print")
       if (selected.length < (game.treatment.channelCapacity || 3)) {
         this.setState({selected: selected.concat([idx])});
       }
     }
-    console.log(selected)
   }
 
   submit(event) {
@@ -32,12 +29,14 @@ export default class SelectStatements extends React.Component {
     event.preventDefault()
     const { selected } = this.state;
     const { player, round } = this.props;
+    const receivedMessage = round.get("receivedMessage");
+    const knowledgeBase = round.get("knowledgeBase");
     const statements = [];
     selected.forEach(i => {
       if (i < receivedMessage.length) {
         statements.push(receivedMessage[i]);
       } else {
-        statements.push(receivedMessage[i - receivedMessage.length]);
+        statements.push(knowledgeBase[i - receivedMessage.length]);
       }
     });
     round.set("sentMessage", statements);
