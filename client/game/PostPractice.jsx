@@ -17,11 +17,11 @@ export default class PostPractice extends React.Component {
             <div className="postPractice">
             <h1> Congratulations! </h1>
             <p>
-                You earned a score of ϗ{round.get("money")} on the practice round.
+              You completed the practice round.
             </p>
             <p>
-                When you are ready to start the main round, click the "Start" button below. Remember that the resources and recipes in the main 
-                task are not the same as in the practice round.
+                When you are ready to start the main round, click the "Start" button below. Remember that the recipes in the main
+                tasks will be different from those in the practice round.
             </p>
             <p>
                 <button type="button" onClick={this.onSubmit.bind(this)}>
