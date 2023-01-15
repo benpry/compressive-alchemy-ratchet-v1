@@ -31,7 +31,7 @@ export default class CraftingGame extends React.Component {
         const { player, stage } = this.props;
         const goal = stage.get("goal");
         const inventory = stage.get("inventory")
-        if (inventory.some(item => item == goal)) {
+        if (inventory.some(item => item["color"] == goal["color"] && item["shape"] == goal["shape"])) {
             stage.set("goalAchieved", true)
             this.setResponseMessage("Congratulations! You reached your goal!")
             setTimeout(player.stage.submit, 3000);
