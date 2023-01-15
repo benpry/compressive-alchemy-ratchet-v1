@@ -66,10 +66,10 @@ Empirica.onRoundStart((game, round) => {
     const chain = assignToChain(round);
     round.set("chainIdx", chain["idx"]);
     round.set("chainPosition", chain["nCompletions"]);
-    const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : "";
+    const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
     round.set("receivedMessage", receivedMessage);
-    round.set("discoveredRecipes", []);
   }
+  round.set("knowledgeBase", []);
 });
 
 // onStageStart is triggered before each stage starts.

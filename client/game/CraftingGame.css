@@ -31,27 +31,34 @@ height: 15rem;
 margin-top: 10px;
 }
 
-.instructional-message, .scratchpad {
+.instructional-message, .discovered-knowledge {
 position: absolute;
 top: 5rem;
-width: 24rem;
+width: 38rem;
 height: 36rem;
 text-align: left;
 }
 
-.scratchpad {
-left: calc(50% + 15% + 5px);
+.discovered-knowledge {
+left: calc(50% + 12.5% + 5px);
+}
+
+.knowledge-base li {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.dsl-statement {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border-radius: 7.5px;
+    padding: 2px 5px;
+    font-size: medium;
 }
 
 .instructional-message {
     top: 22rem;
     left: calc(50% - 15% - 24rem - 5px);
-}
-
-.scratchpad textarea {
-width: 100%;
-height: 100%;
-resize: none;
 }
 
 .value-board-container {

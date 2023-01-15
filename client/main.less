@@ -252,72 +252,40 @@ button {
   text-align: center;
 }
 
-// Shapes
-
-.pentagon {
-  position: relative;
-  width: 54px;
-  box-sizing: content-box;
-  border-width: 50px 18px 0;
-  border-style: solid;
-  border-color: red transparent;
-}
-.pentagon:before {
-  content: "";
-  position: absolute;
-  height: 0;
-  width: 0;
-  top: -85px;
-  left: -18px;
-  border-width: 0 45px 35px;
-  border-style: solid;
-  border-color: transparent transparent red;
+.flex-container {
+    display: flex;
 }
 
-.hexagon {
-    margin-top: 8px;
-    width: 124px;
-    height: 60px;
-    background-color: #6C6;
-    border-color: #6C6;
-    position: relative;
-    display: inline-block;
-    border-radius: 0px;
+.flex-child {
+    flex: 1;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
-.hexagon:before {
-    content: " ";
-    width: 0; height: 0;
-    border-bottom: 32px solid;
-    border-color: inherit;
-    border-left: 62px solid transparent;
-    border-right: 62px solid transparent;
-    position: absolute;
-    top: -34px;
-    left: -2px;
-    z-index: -1;
+.flex-child:first-child {
+    margin-right: 20px;
 }
 
-.hexagon:after {
-    content: "";
-    width: 0;
-    position: absolute;
-    bottom: -34px;
-    border-top: 32px solid;
-    border-color: inherit;
-    border-left: 62px solid transparent;
-    border-right: 62px solid transparent;
-    left: -2px;
-    z-index: -1;
+.statement-checkboxes {
+  width: 42rem;
+  padding: 0px 5px;
 }
 
-.circle {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%
+.statement-checkboxes ul {
+  list-style: none;
+  padding-inline-start: 0px;
+  font-size: medium;
 }
 
-.square {
-  width: 115px;
-  height: 115px;
+.message-passing-instruction {
+  font-size: medium;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
+
+.send-button-container {
+  margin: 2rem 0rem;
+  text-align: center;
+  font-size: large;
+}
+

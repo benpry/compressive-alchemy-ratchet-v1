@@ -3,6 +3,7 @@ import CraftingGame from "./CraftingGame.jsx";
 import PassMessage from "./PassMessage.jsx";
 import PostPractice from "./PostPractice.jsx";
 import PostGameMessage from "./PostGameMessage.jsx";
+import SelectStatements from "./SelectStatements.jsx";
 
 export default class Round extends React.Component {
   render() {
@@ -13,8 +14,8 @@ export default class Round extends React.Component {
         <div className="flex justify-center">
           {stage.name.slice(0,4) == "game" ? (
             <CraftingGame game={game} round={round} stage={stage} player={player} />
-          ) : stage.name == "passMessage" ? (
-            <PassMessage game={game} round={round} stage={stage} player={player} />
+          ) : stage.name == "selectStatements" ? (
+            <SelectStatements game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "postPractice" ? (
             <PostPractice game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "postGame" ? (

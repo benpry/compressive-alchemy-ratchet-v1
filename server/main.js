@@ -89,7 +89,7 @@ Empirica.gameInit(game => {
       });
     }
     round.addStage({
-      name: "passMessage",
+      name: "selectStatements",
       displayName: "Send a Message",
       durationInSeconds: 9999999
     });

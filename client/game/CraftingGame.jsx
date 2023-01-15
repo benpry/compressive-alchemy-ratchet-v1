@@ -2,6 +2,7 @@ import React from "react";
 import { GoalDisplay } from "../components/GoalDisplay.jsx"
 import { Inventory } from "../components/Inventory.jsx";
 import { RecipeTable } from "../components/RecipeTable.jsx";
+import { KnowledgeBase } from "../components/KnowledgeBase.jsx";
 import { Button } from "../components/Button.jsx";
 import { taskFns } from "../../constants.js";
 import "./CraftingGame.css";
@@ -69,6 +70,17 @@ export default class CraftingGame extends React.Component {
         stage.set("log", newLog);
     }
 
+    updateKnowledgeBase(x, y, z) {
+        const { round } = this.props
+
+        const knowledgeBase = round.get("knowledgeBase");
+        const knowledgeStr = `${x["color"]} ${x["shape"]} + ${y["color"]} ${y["shape"]} -> ${z["color"]} ${z["shape"]}`
+        if (!knowledgeBase.includes(knowledgeStr)) {
+            knowledgeBase.push(knowledgeStr);
+            round.set("knowledgeBase", knowledgeBase)
+        }
+    }
+
     addToInventory(items, updateValues) {
 
         const { stage } = this.props;
@@ -116,6 +128,7 @@ export default class CraftingGame extends React.Component {
         this.setResponseMessage(`You produced a ${output['color']} ${output['shape']}!`);
         stage.set("bench", [null, null]);
         this.updateLog("craft", output);
+        this.updateKnowledgeBase(item1, item2, output);
         this.checkDone()
     }
 
@@ -177,6 +190,7 @@ export default class CraftingGame extends React.Component {
         const inventory = stage.get("inventory");
         const scratchpad = round.get("scratchpad");
         const receivedMessage = round.get("receivedMessage");
+        const knowledgeBase = round.get("knowledgeBase");
 
         return (
             <div className="crafting-game-container">
@@ -188,17 +202,13 @@ export default class CraftingGame extends React.Component {
                     </div>
                   <Inventory items={inventory} addFn={this.add.bind(this)} />
                 </div>
-                <div className="scratchpad">
-                    <h2>Scratchpad</h2>
-                    <textarea
-                        value={scratchpad}
-                        onChange={this.scratchpadChange.bind(this)}
-                        onFocus={(e) => e.target.selectionStart = cursorPos}
-                    />
+                <div className="discovered-knowledge">
+                    <h2>Discovered Recipes</h2>
+                    <KnowledgeBase statements={knowledgeBase}/>
                 </div>
                 <div className="instructional-message">
                     <h2>Message</h2>
-                    {renderNewLines(receivedMessage)}
+                    <KnowledgeBase statements={receivedMessage}/>
                 </div>
             </div>
         )
