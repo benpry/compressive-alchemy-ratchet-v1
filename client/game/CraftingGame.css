@@ -140,6 +140,18 @@ left: calc(50% + 12.5% + 5px);
     width: 9rem;
 }
 
+.h-12rem {
+    height: 12rem;
+}
+
+.bench-svg {
+    max-height: 6rem;
+}
+
+.w-12rem {
+    width: 12rem;
+}
+
 .min-h-6 {
     min-height: 1.5rem;
 }

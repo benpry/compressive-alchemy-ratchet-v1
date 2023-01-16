@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "./Button";
+import { shape_paths } from "../../constants.js";
 
 export class RecipeTable extends React.Component {
 
@@ -15,7 +16,7 @@ export class RecipeTable extends React.Component {
                         if (item === null) {
                             return (
                                 <li
-                                  className="border-opacity-20 border-solid rounded-md border-2 border-gray-500/50 h-32 w-32"
+                                  className="border-opacity-20 border-solid rounded-md border-2 border-gray-500/50 h-12rem w-12rem"
                                   key={index}
                                 >
                                     {" "}<br/>
@@ -23,11 +24,18 @@ export class RecipeTable extends React.Component {
                             )
                         } else {
                             return (
-                                <li className="border-opacity-20 border-solid rounded-md border-2 border-gray-500/50 h-32 w-32"
+                                <li className="border-opacity-20 border-solid rounded-md border-2 border-gray-500/50 h-12rem w-12rem"
                                     key={index}
-                                    style={{backgroundColor: item["color"]}}
                                 >
                                   {`${item["color"]} ${item["shape"]}`} <br/>
+                                    <svg viewBox="-100.0 -100.0 200 200" className="bench-svg">
+                                        <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[item["shape"]]}
+                                        style={{fill: item["color"]}}
+                                        />
+                                    </svg><br/>
                                     <Button handleClick={() => removeFn(index)} primary>remove</Button>
                                 </li>
                             )    
