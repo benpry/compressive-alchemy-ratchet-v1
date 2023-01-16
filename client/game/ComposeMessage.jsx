@@ -2,7 +2,8 @@ import React from "react"
 
 import { Centered } from "meteor/empirica:core";
 import { Button } from "../components/Button.jsx";
-import { StatementMaker } from "../components/StatementMaker.jsx"
+import { StatementMaker } from "../components/StatementMaker.jsx";
+import { KnowledgeBase } from "../components/KnowledgeBase.jsx";
 
 export default class ComposeMessage extends React.Component {
 
@@ -44,27 +45,11 @@ export default class ComposeMessage extends React.Component {
         <div className="flex-container">
             <div className="statement-checkboxes flex-child">
                 <h1>Received Recipes</h1>
-                <ul>
-                    {receivedMessage.map((statement, i) => {
-                    return (
-                        <li key={i}>
-                        {statement}
-                        </li>
-                    )
-                    })}
-                </ul>
+                <KnowledgeBase statements={receivedMessage}/>
             </div>
             <div className="statement-checkboxes flex-child">
                 <h1>Discovered Recipes</h1>
-                <ul>
-                    {knowledgeBase.map((statement, i) => {
-                    return (
-                        <li key={i}>
-                         {statement}
-                        </li>
-                    )
-                    })}
-                </ul>
+                <KnowledgeBase statements={knowledgeBase}/>
             </div>
           </div>
         <div className="flex-container">

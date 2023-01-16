@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import { shape_paths } from "../../constants.js";
 
 const colorOptions = ["", "red", "green", "blue", "any"];
 const shapeOptions = ["", "triangle", "square", "pentagon", "anything"];
@@ -38,6 +39,14 @@ export class StatementMaker extends React.Component {
       zColor, zShape
     } = this.state;
 
+    const xC = (xColor == "any") ? "grey" : xColor;
+    const xS = (xShape == "anything") ? "blob" : xShape;
+    const yC = (yColor == "any") ? "grey" : yColor;
+    const yS = (yShape == "anything") ? "blob" : yShape;
+    const zC = (zColor == "any") ? "grey" : zColor;
+    const zS = (zShape == "anything") ? "blob" : zShape;
+    console.log(zS)
+
     return (
       <div className="statement-maker">
         <select value={xColor} onChange={e => this.setState({xColor: e.target.value}, this.updateCallback.bind(this))}>
@@ -60,7 +69,36 @@ export class StatementMaker extends React.Component {
         <select value={zShape} onChange={e => this.setState({zShape: e.target.value}, this.updateCallback.bind(this))}>
           {shapeOptions.map(x => <option key={x} value={x}>{x}</option>)}
         </select>
+        {xC && xS && yC && yS && zC && zS ?
+            <span>
+                <svg viewBox="-100.0 -100.0 200 200">
+                    <path
+                    strokeWidth="0"
+                    strokeLinejoin="mitre"
+                    d={shape_paths[xS]}
+                    style={{fill: xC}}
+                    />
+                </svg> {" + "}
+                <svg viewBox="-100.0 -100.0 200 200">
+                    <path
+                    strokeWidth="0"
+                    strokeLinejoin="mitre"
+                    d={shape_paths[yS]}
+                    style={{fill: yC}}
+                    />
+                </svg> {" -> "}
+                <svg viewBox="-100.0 -100.0 200 200">
+                    <path
+                    strokeWidth="0"
+                    strokeLinejoin="mitre"
+                    d={shape_paths[zS]}
+                    style={{fill: zC}}
+                    />
+                </svg>
+            </span>
+         : <span className="placeholder-span"/>}
       </div>
     )
   }
+
 }

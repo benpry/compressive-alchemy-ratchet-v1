@@ -2,6 +2,7 @@ import React from "react";
 
 import { Centered } from "meteor/empirica:core";
 import { Button } from "../components/Button.jsx";
+import { shape_paths } from "../../constants.js";
 
 export default class SelectStatements extends React.Component {
 
@@ -51,6 +52,8 @@ export default class SelectStatements extends React.Component {
     const knowledgeBase = round.get("knowledgeBase");
     const channelCapacity = game.treatment.channelCapacity;
 
+    const regex = /(\w+) (\w+) \+ (\w+) (\w+) -> (\w+) (\w+)/;
+
     return (
       <div className="select-statements">
 
@@ -63,34 +66,126 @@ export default class SelectStatements extends React.Component {
                 <h1>Received Recipes</h1>
                 <ul>
                     {receivedMessage.map((statement, i) => {
-                    return (
-                        <li key={i}>
-                        <input
-                            type="checkbox"
-                            checked={selected.includes(i)}
-                            onChange={e => this.toggleChecked(i)}
-                        />
-                        {" "} {statement}
-                        </li>
-                    )
-                    })}
+
+                        const result = regex.exec(statement);
+                        if (result != null) {
+                            // read the relevant values from the regex
+                            const xColor = result[1] == "any" ? "grey" : result[1];
+                            const xShape = result[2] == "anything" ? "blob" : result[2];
+                            const yColor = result[3] == "any" ? "grey" : result[3];
+                            const yShape = result[4] == "anything" ? "blob" : result[4];
+                            const zColor = result[5] == "any" ? "grey" : result[5];
+                            const zShape = result[6] == "anything" ? "blob" : result[6];
+
+                            return (
+                                <li key={i}>
+                                <input
+                                    type="checkbox"
+                                    checked={selected.includes(i)}
+                                    onChange={e => this.toggleChecked(i)}
+                                />
+                                {" "} {statement} <br/>
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[xShape]}
+                                        style={{fill: xColor}}
+                                    />
+                                </svg> {" + "}
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[yShape]}
+                                        style={{fill: yColor}}
+                                    />
+                                </svg> {" -> "}
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[zShape]}
+                                        style={{fill: zColor}}
+                                    />
+                                </svg>
+                                </li>
+                            )
+                        } else {
+                          return (
+                            <li key={i}>
+                                <input
+                                    type="checkbox"
+                                    checked={selected.includes(i)}
+                                    onChange={e => this.toggleChecked(i)}
+                                />
+                                {" "} {statement}
+                            </li>
+                          )
+                        }})}
                 </ul>
             </div>
             <div className="statement-checkboxes flex-child">
                 <h1>Discovered Recipes</h1>
                 <ul>
                     {knowledgeBase.map((statement, i) => {
-                    return (
-                        <li key={i}>
-                        <input
-                            type="checkbox"
-                            checked={selected.includes(i + receivedMessage.length)}
-                            onChange={e => this.toggleChecked(i + receivedMessage.length)}
-                        />
-                        {" "} {statement}
-                        </li>
-                    )
-                    })}
+
+                        const result = regex.exec(statement);
+                        if (result != null) {
+                            // read the relevant values from the regex
+                            const xColor = result[1] == "any" ? "grey" : result[1];
+                            const xShape = result[2] == "anything" ? "blob" : result[2];
+                            const yColor = result[3] == "any" ? "grey" : result[3];
+                            const yShape = result[4] == "anything" ? "blob" : result[4];
+                            const zColor = result[5] == "any" ? "grey" : result[5];
+                            const zShape = result[6] == "anything" ? "blob" : result[6];
+
+                            return (
+                                <li key={i}>
+                                <input
+                                    type="checkbox"
+                                    checked={selected.includes(i + receivedMessage.length)}
+                                    onChange={e => this.toggleChecked(i + receivedMessage.length)}
+                                />
+                                {" "} {statement} <br/>
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[xShape]}
+                                        style={{fill: xColor}}
+                                    />
+                                </svg> {" + "}
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[yShape]}
+                                        style={{fill: yColor}}
+                                    />
+                                </svg> {" -> "}
+                                <svg viewBox="-100.0 -100.0 200 200">
+                                    <path
+                                        strokeWidth="0"
+                                        strokeLinejoin="mitre"
+                                        d={shape_paths[zShape]}
+                                        style={{fill: zColor}}
+                                    />
+                                </svg>
+                                </li>
+                            )
+                        } else {
+                          return (
+                            <li key={i}>
+                                <input
+                                    type="checkbox"
+                                    checked={selected.includes(i + receivedMessage.length)}
+                                    onChange={e => this.toggleChecked(i + receivedMessage.length)}
+                                />
+                                {" "} {statement}
+                            </li>
+                          )
+                    }})}
                 </ul>
             </div>
         </div>

@@ -54,6 +54,13 @@ left: calc(50% + 12.5% + 5px);
     border-radius: 7.5px;
     padding: 2px 5px;
     font-size: medium;
+    max-height: 8rem;
+    text-align: center;
+}
+
+.dsl-statement svg {
+    max-height: 5rem;
+    vertical-align: middle;
 }
 
 .instructional-message {

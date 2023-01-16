@@ -9,7 +9,6 @@ export default class MessagePassingWithAbstraction extends React.Component {
       <Centered>
         <div className="instructions">
           <div className="instructions-text">
-            <h1>IF YOU ARE SEEING THIS I AM SHOWING YOU THE WRONG INSTRUCTIONS</h1>
             <h1> Message Passing </h1>
             <p>
               You also might get help from a previous participant. If you do, you will see a message from them in the left-hand side of the
@@ -17,17 +16,11 @@ export default class MessagePassingWithAbstraction extends React.Component {
             </p>
             <ul>
               <li>The participant who wrote the message did the same task as you with the <strong>same recipes</strong>.</li>
-              <li>You will write a similar message to help a future participant after you play the game.</li>
-              <li>The message you write can contain anything you want.</li>
-              <li>The <strong>next participant's individual bonus will be added to your bonus</strong>*, so it is important to leave a helpful message.</li>
-            </ul>
-            <p>
-              While you work on the task, you will have access to a <strong>scratchpad on the right of the screen</strong>.
-            </p>
-            <ul>
-              <li>You can write whatever notes you want in the scratchpad.</li>
-              <li>The scratchpad will be visible when you write a message to the next participant.</li>
-              <li>You will not have any other record of how you played the game when writing your message, so you should keep track of important information with the scratchpad.</li>
+              <li>You will send recipes to the next participant after you play the game.</li>
+              <li>The message can contain at most {game.treatment.channelCapacity} statements about the inputs and outputs.</li>
+              <li>The messages can either specify specific recipes or more general rules.</li>
+              <li>You will earn <strong>a bonus of {game.treatment.goalBonus}¢</strong> for each goal the person who reads your message achieves*,
+                so it is important to leave a helpful message.</li>
             </ul>
             <p>
               Next, you will take a quiz to test your understanding of the game then complete a practice round.
