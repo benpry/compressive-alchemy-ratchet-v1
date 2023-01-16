@@ -102,28 +102,29 @@ export const practiceTask = {
         }
     ],
     "validGoals": [
-        {"color": "green", "shape": "triangle"},
-        {"color": "green", "shape": "square"},
-        {"color": "red", "shape": "triangle"},
-        {"color": "red", "shape": "pentagon"},
-        {"color": "blue", "shape": "triangle"},
-        {"color": "blue", "shape": "square"},
-        {"color": "blue", "shape": "pentagon"}
+        // practice goal is always blue triangle
+        {"color": "blue", "shape": "triangle"}
     ]
 }
 
 export const taskFns = {
-        "-1": {
+    "-1": {
         "_id": -1,
         recipeFn(x1, x2) {
-            if (x1["shape"] == "square") {
+            if (x1["color"] == "red" && x1["shape"] == "square" && x2["color"] == "green" && x2["shape"] == "pentagon") {
                 return {
                     "shape": "triangle",
                     "color": "green"
                 }
-            } else {
+            } else if (x1["color"] == "green" && x1["shape"] == "pentagon" && x2["color"] == "red" && x2["shape"] == "square") {
                 return {
                     "shape": "square",
+                    "color": "blue"
+                }
+            } else if (x1["color"] == "green" && x1["shape"] == "triangle" && x2["color"] == "blue" && x2["shape"] == "square" ||
+                       x1["color"] == "blue" && x1["shape"] == "square" && x2["color"] == "green" && x2["shape"] == "triangle") {
+                return {
+                    "shape": "triangle",
                     "color": "blue"
                 }
             }

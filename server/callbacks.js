@@ -35,9 +35,9 @@ const completeChain = (taskId, chainIdx) => {
     });
 }
 
-const assignToChain = (round) => {
+const assignToChain = (round, treatment) => {
   const taskId = round.get("taskId");
-  const taskChains = ChainCollection.find({ taskId: taskId, busy: false }, {sort: {nCompletions: 1}}).fetch();
+  const taskChains = ChainCollection.find({ taskId: taskId, canAbstract: treatment.canAbstract, busy: false }, {sort: {nCompletions: 1}}).fetch();
   const minCompletions = Math.min(...taskChains.map(x => x.nCompletions));
   const minCompletionChains = taskChains.filter(x => x.nCompletions === minCompletions);
   const assignedChain = minCompletionChains[Math.floor(Math.random()*minCompletionChains.length)];
@@ -63,7 +63,7 @@ Empirica.onRoundStart((game, round) => {
     round.set("receivedMessage", practiceMessage)
   } else {
     // set up a main round
-    const chain = assignToChain(round);
+    const chain = assignToChain(round, game.treatment);
     round.set("chainIdx", chain["idx"]);
     round.set("chainPosition", chain["nCompletions"]);
     const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];

@@ -58,7 +58,7 @@ export default class SelectStatements extends React.Component {
       <div className="select-statements">
 
         <div className="message-passing-instruction">
-            Select up to {channelCapacity} statements to pass to the next participant:
+            Use the checkboxes to select up to {channelCapacity} statements to pass to the next participant:
         </div>
 
         <div className="flex-container">

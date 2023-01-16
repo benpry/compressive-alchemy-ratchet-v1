@@ -21,11 +21,12 @@ function fyShuffle(arr) {
 }
 
 // a function to create a function to create a new chain
-const createTaskChain = (taskId) => {
+const createTaskChain = (taskId, canAbstract) => {
   const createChain = (chainIdx) => {
     ChainCollection.insert({
       taskId: taskId,
       idx: chainIdx,
+      canAbstract: canAbstract,
       messageHistory: [],
       nCompletions: 0,
       busy: false
@@ -56,10 +57,11 @@ Empirica.gameInit(game => {
 
   // if we have fewer than the specified number of chains, create enough
   const nChains = game.treatment.nChains;
+  const canAbstract = game.treatment.canAbstract;
   finalTasks.forEach(task => {
-    const currentNChains = ChainCollection.find({ taskId: task._id }).count();
+    const currentNChains = ChainCollection.find({ taskId: task._id, canAbstract: canAbstract }).count();
     if (currentNChains < nChains ) {
-      range(currentNChains, nChains).forEach(createTaskChain(task._id));
+      range(currentNChains, nChains).forEach(createTaskChain(task._id, canAbstract));
     }
   });
 

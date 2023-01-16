@@ -4,7 +4,7 @@ import { Centered } from "meteor/empirica:core";
 
 export default class MessagePassingWithAbstraction extends React.Component {
   render() {
-    const { hasPrev, hasNext, onNext, onPrev } = this.props;
+    const { hasPrev, hasNext, onNext, onPrev, game } = this.props;
     return (
       <Centered>
         <div className="instructions">
