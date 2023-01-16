@@ -68,6 +68,9 @@ Empirica.onRoundStart((game, round) => {
     round.set("chainPosition", chain["nCompletions"]);
     const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
     round.set("receivedMessage", receivedMessage);
+    if (game.treatment.canAbstract) {
+      round.set("sentMessage", [...Array(game.treatment.channelCapacity).keys()].map(x => null))
+    }
   }
   round.set("knowledgeBase", []);
 });
@@ -109,8 +112,6 @@ Empirica.onRoundEnd((game, round) => {
       // TODO: compute bonus based on goal achievement
       // player.set("bonus", player.get("bonus") + round.get("money") / game.treatment.conversionRate);
     })
-    console.log("sending message")
-    console.log(round.get("sentMessage"))
     updateMessageHistory(taskId, chainIdx, round.get("sentMessage"));
     completeChain(taskId, chainIdx);  
   } 

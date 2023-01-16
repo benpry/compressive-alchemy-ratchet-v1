@@ -9,7 +9,6 @@ import ComposeMessage from "./ComposeMessage.jsx";
 export default class Round extends React.Component {
   render() {
     const { round, stage, player, game } = this.props;
-    console.log(stage.name)
 
     return (
       <div className="round">
@@ -19,7 +18,7 @@ export default class Round extends React.Component {
           ) : stage.name == "selectStatements" ? (
             <SelectStatements game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "composeMessage" ? ( // change this
-            <SelectStatements game={game} round={round} stage={stage} player={player} />
+            <ComposeMessage game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "postPractice" ? (
             <PostPractice game={game} round={round} stage={stage} player={player} />
           ) : stage.name == "postGame" ? (

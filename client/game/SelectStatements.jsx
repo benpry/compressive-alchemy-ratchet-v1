@@ -26,7 +26,7 @@ export default class SelectStatements extends React.Component {
 
   submit(event) {
     // compile the message
-    event.preventDefault()
+    event.preventDefault();
     const { selected } = this.state;
     const { player, round } = this.props;
     const receivedMessage = round.get("receivedMessage");
@@ -59,40 +59,40 @@ export default class SelectStatements extends React.Component {
         </div>
 
         <div className="flex-container">
-        <div className="statement-checkboxes flex-child">
-          <h1>Received Recipes</h1>
-          <ul>
-            {receivedMessage.map((statement, i) => {
-              return (
-                <li key={i}>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(i)}
-                    onChange={e => this.toggleChecked(i)}
-                  />
-                  {" "} {statement}
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="statement-checkboxes flex-child">
-          <h1>Discovered Recipes</h1>
-          <ul>
-            {knowledgeBase.map((statement, i) => {
-              return (
-                <li key={i}>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(i + receivedMessage.length)}
-                    onChange={e => this.toggleChecked(i + receivedMessage.length)}
-                  />
-                  {" "} {statement}
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+            <div className="statement-checkboxes flex-child">
+                <h1>Received Recipes</h1>
+                <ul>
+                    {receivedMessage.map((statement, i) => {
+                    return (
+                        <li key={i}>
+                        <input
+                            type="checkbox"
+                            checked={selected.includes(i)}
+                            onChange={e => this.toggleChecked(i)}
+                        />
+                        {" "} {statement}
+                        </li>
+                    )
+                    })}
+                </ul>
+            </div>
+            <div className="statement-checkboxes flex-child">
+                <h1>Discovered Recipes</h1>
+                <ul>
+                    {knowledgeBase.map((statement, i) => {
+                    return (
+                        <li key={i}>
+                        <input
+                            type="checkbox"
+                            checked={selected.includes(i + receivedMessage.length)}
+                            onChange={e => this.toggleChecked(i + receivedMessage.length)}
+                        />
+                        {" "} {statement}
+                        </li>
+                    )
+                    })}
+                </ul>
+            </div>
         </div>
         <div className="send-button-container">
           <Button
