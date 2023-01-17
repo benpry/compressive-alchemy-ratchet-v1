@@ -11,9 +11,9 @@ const setBusy = (currChain) => {
   })
 };
 
-const updateMessageHistory = (taskId, chainIdx, message) => {
+const updateMessageHistory = (taskId, canAbstract, chainIdx, message) => {
   // get the chain
-  const chain = ChainCollection.findOne({ taskId: taskId, idx: chainIdx })
+  const chain = ChainCollection.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
   // add the message to the message history
   chain.messageHistory.push(message)
 
@@ -26,7 +26,7 @@ const updateMessageHistory = (taskId, chainIdx, message) => {
 
 const completeChain = (taskId, canAbstract, chainIdx) => {
     // get the chain
-    const chain = ChainCollection.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
+  const chain = ChainCollection.game.treatment.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
     ChainCollection.update(chain._id, {
       $set: {
         nCompletions: chain.nCompletions + 1,
@@ -117,7 +117,7 @@ Empirica.onRoundEnd((game, round) => {
   const taskId = round.get("taskId");
   // if this isn't the practice round, update the chain
   if (taskId != -1) {
-    updateMessageHistory(taskId, chainIdx, round.get("sentMessage"));
+    updateMessageHistory(taskId, chainIdx, game.treatment.canAbstract, round.get("sentMessage"));
     completeChain(taskId, game.treatment.canAbstract, chainIdx);
   } 
 });
