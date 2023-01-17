@@ -24,9 +24,9 @@ const updateMessageHistory = (taskId, chainIdx, message) => {
   });
 }
 
-const completeChain = (taskId, chainIdx) => {
+const completeChain = (taskId, canAbstract, chainIdx) => {
     // get the chain
-    const chain = ChainCollection.findOne({ taskId: taskId, idx: chainIdx })
+    const chain = ChainCollection.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
     ChainCollection.update(chain._id, {
       $set: {
         nCompletions: chain.nCompletions + 1,
@@ -68,6 +68,7 @@ Empirica.onRoundStart((game, round) => {
     round.set("chainPosition", chain["nCompletions"]);
     const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
     round.set("receivedMessage", receivedMessage);
+    round.set("bonus", 0);
     if (game.treatment.canAbstract) {
       round.set("sentMessage", [...Array(game.treatment.channelCapacity).keys()].map(x => null))
     }
@@ -98,7 +99,15 @@ Empirica.onStageStart((game, round, stage) => {
 
 // onStageEnd is triggered after each stage.
 // It receives the same options as onRoundEnd, and the stage that just ended.
-Empirica.onStageEnd((game, round, stage) => {});
+Empirica.onStageEnd((game, round, stage) => {
+  if (stage.name.slice(0,4) == "game") {
+    if (stage.get("goalAchieved")) {
+      game.players.forEach(player => {
+        player.set("bonus", player.get("bonus") + game.treatment.goalBonus);
+      });
+    }
+  }
+});
 
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
@@ -108,12 +117,8 @@ Empirica.onRoundEnd((game, round) => {
   const taskId = round.get("taskId");
   // if this isn't the practice round, update the chain
   if (taskId != -1) {
-    game.players.forEach(player => {
-      // TODO: compute bonus based on goal achievement
-      // player.set("bonus", player.get("bonus") + round.get("money") / game.treatment.conversionRate);
-    })
     updateMessageHistory(taskId, chainIdx, round.get("sentMessage"));
-    completeChain(taskId, chainIdx);  
+    completeChain(taskId, game.treatment.canAbstract, chainIdx);
   } 
 });
 
