@@ -127,6 +127,11 @@ export const taskFns = {
                     "shape": "triangle",
                     "color": "blue"
                 }
+            } else {
+                return {
+                    "shape": "pentagon",
+                    "color": "blue"
+                }
             }
         }
     },
