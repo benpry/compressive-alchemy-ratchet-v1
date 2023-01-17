@@ -27,7 +27,7 @@ export default class Quiz extends React.Component {
           <h1> Quiz </h1>
           <form onSubmit={this.handleSubmit}>
             <p>
-              <label htmlFor="nResources">How many resources go into each recipe?</label>
+              <label htmlFor="nResources">How many items go into each recipe?</label>
               <input
                 type="text"
                 dir="auto"

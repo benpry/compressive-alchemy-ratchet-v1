@@ -21,6 +21,11 @@ export default class MessagePassingNoAbstraction extends React.Component {
                 so it is important to leave a helpful message.</li>
             </ul>
             <p>
+              You will see a list of recipes that you either received or discovered. <strong>Use the checkboxes</strong> to choose which recipes you want to send to the next person.
+              Here is an example of a statement with a checkbox.
+            </p>
+            <img src="example-checkbox.png"/>
+            <p>
               Next, you will take a quiz to test your understanding of the game then complete a practice round.
             </p>
             <p>

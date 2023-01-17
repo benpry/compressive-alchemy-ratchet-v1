@@ -35,6 +35,9 @@ export default class MessagePassingWithAbstraction extends React.Component {
             </p>
             <img src="general-statement-2.png"/>
             <p>
+              You <strong>must select a value for each drop-down</strong> in order for any statement to be sent.
+            </p>
+            <p>
               Next, you will take a quiz to test your understanding of the game then complete a practice round.
             </p>
             <p>
