@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Centered } from "meteor/empirica:core";
 
 export default class Quiz extends React.Component {
@@ -12,8 +11,7 @@ export default class Quiz extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    if (this.state.nResources !== "2" || (this.state.totalBonus !== "$1.23" && this.state.totalBonus !== "1.23")) {
+    if (this.state.nResources !== "2" || (this.state.totalBonus !== "90")) {
       alert("Incorrect! Read the instructions, and please try again.");
     } else {
       this.props.onNext();
@@ -44,22 +42,21 @@ export default class Quiz extends React.Component {
             </p>
             <p>
               <label htmlFor="totalBonus">
-                Suppose you complete the task and earn an individual bonus of $0.50. You leave a message for the next person, who earns an individual bonus of $0.73.
-                How much would your bonus be in total?
+                Suppose you achieve 8 goals. You leave a message for the next person, who achieves 10 goals.
+                How much would your total bonus be, in cents?
               </label>
               <input
                 type="text"
                 dir="auto"
                 id="totalBonus"
                 name="totalBonus"
-                placeholder="e.g. $1.50"
+                placeholder="e.g. 55"
                 value={totalBonus}
                 onChange={this.handleChange}
                 autoComplete="off"
                 required
               />
             </p>
-
             <p>
               <button type="button" onClick={onPrev} disabled={!hasPrev}>
                 Back to instructions

@@ -20,7 +20,8 @@ export default class CraftingGame extends React.Component {
         this.state = {
             responseMessage: "",
             cursorPos: 0,
-            recipeFn: function(x, y) { return null }
+            recipeFn: function(x, y) { return null },
+            done: false
         };
     }
 
@@ -35,11 +36,14 @@ export default class CraftingGame extends React.Component {
         if (inventory.some(item => item["color"] == goal["color"] && item["shape"] == goal["shape"])) {
             stage.set("goalAchieved", true)
             this.setResponseMessage("Congratulations! You reached your goal!")
+            this.setState({done: true})
             setTimeout(player.stage.submit, 3000);
         } else if (inventory.length == 1) {
             stage.set("goalAchieved", false)
             this.setResponseMessage("You failed to reach the goal in this episode.")
+            this.setState({done: true})
             setTimeout(player.stage.submit, 3000);
+            this.setState({done: true})
         }
     }
 
@@ -114,6 +118,11 @@ export default class CraftingGame extends React.Component {
 
     craft(item1, item2) {
 
+        const { done } = this.state;
+        if (done) {
+            return
+        }
+
         const { stage } = this.props;
         const { recipeFn } = this.state;
         const task = stage.get("task");
@@ -133,6 +142,12 @@ export default class CraftingGame extends React.Component {
     }
 
     add(itemIdx) {
+
+        const { done } = this.state;
+        if (done) {
+            return
+        }
+
         const { stage } = this.props;
         const inventory = stage.get("inventory");
         // create a new bench

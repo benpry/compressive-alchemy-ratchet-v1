@@ -15,6 +15,7 @@ export default class InstructionStepOne extends React.Component {
             <ul>
               <li>Every item has a <strong>shape</strong> and a <strong>color</strong>.</li>
               <li>The shapes and colors of the items determine what they produce when you craft them together.</li>
+              <li>Every combination of two items produces one item when crafted.</li>
               <li>The game will keep track of all the recipes you discover as you craft items together.</li>
             </ul>
             <p>
@@ -22,7 +23,6 @@ export default class InstructionStepOne extends React.Component {
             </p>
             <ul>
               <li>You can place any two resources on the crafting table with the "add" button and try to craft something with the "Craft!" button.</li>
-              <li>Crafting produces one new item.</li>
               <li>The order of resources on the bench matters: placing the same two items in a different order might produce something different.</li>
             </ul>
             <p>
@@ -36,6 +36,7 @@ export default class InstructionStepOne extends React.Component {
             <p>You will earn a <strong>bonus of {game.treatment.goalBonus}¢</strong> for every goal you accomplish.</p>
             <p>Scroll down to see an example of the interface, then click "Next" to move on.</p>
           </div>
+          <br/>
           <div className="instructions-image">
             <img src="interface_screenshot.png"/>
           </div>

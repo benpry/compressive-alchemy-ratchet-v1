@@ -16,12 +16,24 @@ export default class MessagePassingWithAbstraction extends React.Component {
             </p>
             <ul>
               <li>The participant who wrote the message did the same task as you with the <strong>same recipes</strong>.</li>
-              <li>You will send recipes to the next participant after you play the game.</li>
+              <li>You will send statements to the next participant after you play the game.</li>
               <li>The message can contain at most {game.treatment.channelCapacity} statements about the inputs and outputs.</li>
-              <li>The messages can either specify specific recipes or more general rules.</li>
               <li>You will earn <strong>a bonus of {game.treatment.goalBonus}¢</strong> for each goal the person who reads your message achieves*,
                 so it is important to leave a helpful message.</li>
             </ul>
+            <p>
+              Each statement specifies something about the shapes and colors of the inputs and outputs. You can specify specific shapes and colors...
+            </p>
+            <img src="specific-statement.png"/>
+            <p>
+              ...or if a color doesn't matter for a particular statement, you can use the "any" and "anything" options.
+            </p>
+            <img src="general-statement-1.png"/>
+            <p>
+              The above statement means "any triangle combined with a blue square makes a green triangle". The below statement means
+              "a blue pentagon combined with any shape of any color makes a green triangle".
+            </p>
+            <img src="general-statement-2.png"/>
             <p>
               Next, you will take a quiz to test your understanding of the game then complete a practice round.
             </p>

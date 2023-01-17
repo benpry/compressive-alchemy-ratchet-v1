@@ -86,7 +86,7 @@ Empirica.gameInit(game => {
     for (let i = 0; i < game.treatment.nEpisodes; i++) {
       round.addStage({
         name: `game${i}`,
-        displayName: `Game ${i}`,
+        displayName: `Episode ${i+1}`,
         durationInSeconds: 9999999
       });
     }
