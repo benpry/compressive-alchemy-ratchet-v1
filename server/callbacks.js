@@ -117,7 +117,7 @@ Empirica.onRoundEnd((game, round) => {
   const taskId = round.get("taskId");
   // if this isn't the practice round, update the chain
   if (taskId != -1) {
-    updateMessageHistory(taskId, chainIdx, game.treatment.canAbstract, round.get("sentMessage"));
+    updateMessageHistory(taskId, game.treatment.canAbstract, chainIdx, round.get("sentMessage"));
     completeChain(taskId, game.treatment.canAbstract, chainIdx);
   } 
 });
