@@ -25,8 +25,8 @@ const updateMessageHistory = (taskId, canAbstract, chainIdx, message) => {
 }
 
 const completeChain = (taskId, canAbstract, chainIdx) => {
-    // get the chain
-  const chain = ChainCollection.game.treatment.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
+  // get the chain
+  const chain = ChainCollection.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
     ChainCollection.update(chain._id, {
       $set: {
         nCompletions: chain.nCompletions + 1,
