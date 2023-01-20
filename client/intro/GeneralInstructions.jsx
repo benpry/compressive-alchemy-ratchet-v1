@@ -29,8 +29,8 @@ export default class InstructionStepOne extends React.Component {
               The game ends when you either produce your goal item or have only one item left in your inventory and can't craft anymore.
             </p>
             <p>
-              You will complete <strong>multiple games</strong>, each with different recipes and starting resources.
-              You will complete <strong>multiple "episodes"</strong> of the game, where your starting items and recipes will be the same,
+              You will complete <strong>three games</strong>, each with different recipes and starting resources.
+              You will complete <strong>{game.treatment.nEpisodes} "episodes"</strong> of the game, where your starting items and recipes will be the same,
               but you might have different goals.
             </p>
             <p>You will earn a <strong>bonus of {game.treatment.goalBonus}¢</strong> for every goal you accomplish.</p>

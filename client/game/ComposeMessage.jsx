@@ -16,9 +16,8 @@ export default class ComposeMessage extends React.Component {
       const { round } = this.props;
 
       const statements = round.get("sentMessage");
-      console.log(`updating statement to ${newStatement}`)
       statements[i] = newStatement;
-      round.set("sentMessage", statements)
+      round.set("sentMessage", statements);
     }
 
     return statementUpdater;
@@ -38,6 +37,7 @@ export default class ComposeMessage extends React.Component {
     const { game, round } = this.props;
 
     const receivedMessage = round.get("receivedMessage");
+    const sentMessage = round.get("sentMessage");
     const knowledgeBase = round.get("knowledgeBase");
     const canAbstract = game.treatment.canAbstract;
 
@@ -61,7 +61,11 @@ export default class ComposeMessage extends React.Component {
                   [...Array(game.treatment.channelCapacity).keys()].map(i => {
                     return (
                       <li key={i}>
-                        <StatementMaker canAbstract={canAbstract} updateFn={this.makeStatementUpdater(i)} />
+                        <StatementMaker
+                          canAbstract={canAbstract}
+                          statement={sentMessage[i]}
+                          updateFn={this.makeStatementUpdater(i)}
+                        />
                       </li>
                     )
                   })

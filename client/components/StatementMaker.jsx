@@ -28,6 +28,35 @@ export class StatementMaker extends React.Component {
     }
   }
 
+  componentDidMount() {
+    // if there is a received message, initialize to that message
+    const { statement } = this.props;
+    if (statement == null) {
+      return
+    }
+
+    const regex = /(\w+) (\w+) \+ (\w+) (\w+) -> (\w+) (\w+)/g;
+    const result = regex.exec(statement)
+
+    // read the relevant values from the regex
+    const xColor = result[1];
+    const xShape = result[2];
+    const yColor = result[3];
+    const yShape = result[4];
+    const zColor = result[5];
+    const zShape = result[6];
+
+    this.setState({
+      "xColor": xColor,
+      "xShape": xShape,
+      "yColor": yColor,
+      "yShape": yShape,
+      "zColor": zColor,
+      "zShape": zShape
+    });
+
+  }
+
   render() {
 
     const {

@@ -15,7 +15,7 @@ export default class MessagePassingWithAbstraction extends React.Component {
               screen.
             </p>
             <ul>
-              <li>The participant who wrote the message did the same task as you with the <strong>same recipes</strong>.</li>
+              <li>The participant who wrote the message played the same game as you with the <strong>same recipes</strong>.</li>
               <li>You will send statements to the next participant after you play the game.</li>
               <li>The message can contain at most {game.treatment.channelCapacity} statements about the inputs and outputs.</li>
               <li>You will earn <strong>a bonus of {game.treatment.goalBonus}¢</strong> for each goal the person who reads your message achieves*,

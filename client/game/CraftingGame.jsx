@@ -204,13 +204,16 @@ export default class CraftingGame extends React.Component {
         const scratchpad = round.get("scratchpad");
         const receivedMessage = round.get("receivedMessage");
         const knowledgeBase = round.get("knowledgeBase");
+        const achieved = stage.get("goalAchieved");
+        const responseMessageClass = achieved == null ? "" :
+              achieved == true ? "success-message" : "failure-message"
 
         return (
             <div className="crafting-game-container">
                 <GoalDisplay goalItem={goal}/>
                 <div className="crafting-game w-fit max-w-game mt-4">
                     <RecipeTable bench={bench} craftFn={this.craft.bind(this)} removeFn={this.remove.bind(this)} />
-                    <div className="response-message min-h-6">
+                    <div className={`response-message ${responseMessageClass} min-h-6`}>
                         {responseMessage}
                     </div>
                     <Inventory items={inventory} addFn={this.add.bind(this)} />
