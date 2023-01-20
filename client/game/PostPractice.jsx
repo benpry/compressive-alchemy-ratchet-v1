@@ -14,7 +14,7 @@ export default class PostPractice extends React.Component {
 
         return (
         <Centered>
-            <div className="postPractice">
+            <div className="post-practice">
             <h1> Congratulations! </h1>
             <p>
               You completed the practice round.
