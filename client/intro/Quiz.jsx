@@ -10,8 +10,9 @@ export default class Quiz extends React.Component {
   };
 
   handleSubmit = event => {
+    const { game } = this.props;
     event.preventDefault();
-    if (this.state.nResources !== "2" || (this.state.totalBonus !== "90")) {
+    if (this.state.nResources !== "2" || (game.treatment.passMessages && this.state.totalBonus !== "90") || (!game.treatment.passMessages && this.state.totalBonus != "40")) {
       alert("Incorrect! Read the instructions, and please try again.");
     } else {
       this.props.onNext();
@@ -19,7 +20,7 @@ export default class Quiz extends React.Component {
   };
 
   render() {
-    const { hasPrev, hasNext, onNext, onPrev } = this.props;
+    const { hasPrev, hasNext, onNext, onPrev, game } = this.props;
     const { nResources, totalBonus } = this.state;
     return (
       <Centered>
@@ -40,23 +41,42 @@ export default class Quiz extends React.Component {
                 required
               />
             </p>
-            <p>
-              <label htmlFor="totalBonus">
-                Suppose you achieve 8 goals. You leave a message for the next person, who achieves 10 goals.
-                How much would your total bonus be, in cents?
-              </label>
-              <input
-                type="text"
-                dir="auto"
-                id="totalBonus"
-                name="totalBonus"
-                placeholder="e.g. 55"
-                value={totalBonus}
-                onChange={this.handleChange}
-                autoComplete="off"
-                required
-              />
-            </p>
+            {game.treatment.passMessages ?
+              <p>
+                <label htmlFor="totalBonus">
+                  Suppose you achieve 8 goals. You leave a message for the next person, who achieves 10 goals.
+                  How much would your total bonus be, in cents?
+                </label>
+                <input
+                  type="text"
+                  dir="auto"
+                  id="totalBonus"
+                  name="totalBonus"
+                  placeholder="e.g. 55"
+                  value={totalBonus}
+                  onChange={this.handleChange}
+                  autoComplete="off"
+                  required
+                />
+              </p>
+             :
+              <p>
+                <label htmlFor="totalBonus">
+                  Suppose you achieve 8 goals. How much would your total bonus be, in cents?
+                </label>
+                <input
+                  type="text"
+                  dir="auto"
+                  id="totalBonus"
+                  name="totalBonus"
+                  placeholder="e.g. 55"
+                  value={totalBonus}
+                  onChange={this.handleChange}
+                  autoComplete="off"
+                  required
+                />
+              </p>
+            }
             <p>
               <button type="button" onClick={onPrev} disabled={!hasPrev}>
                 Back to instructions

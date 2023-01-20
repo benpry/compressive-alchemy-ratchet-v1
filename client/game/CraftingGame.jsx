@@ -57,7 +57,7 @@ export default class CraftingGame extends React.Component {
 
     updateLog(actionType, item) {
         
-        const { stage, round } = this.props;
+        const { stage, round, game } = this.props;
 
         const inventory = stage.get("inventory");
         const bench = stage.get("bench");
@@ -196,7 +196,7 @@ export default class CraftingGame extends React.Component {
     }
     
     render() {
-        const { round, stage } = this.props;
+        const { game, round, stage } = this.props;
         const { responseMessage, cursorPos, craftFn } = this.state;
 
         const task = stage.get("task");
@@ -209,22 +209,24 @@ export default class CraftingGame extends React.Component {
 
         return (
             <div className="crafting-game-container">
-              <GoalDisplay goalItem={goal}/>
+                <GoalDisplay goalItem={goal}/>
                 <div className="crafting-game w-fit max-w-game mt-4">
                     <RecipeTable bench={bench} craftFn={this.craft.bind(this)} removeFn={this.remove.bind(this)} />
                     <div className="response-message min-h-6">
                         {responseMessage}
                     </div>
-                  <Inventory items={inventory} addFn={this.add.bind(this)} />
+                    <Inventory items={inventory} addFn={this.add.bind(this)} />
                 </div>
                 <div className="discovered-knowledge">
                     <h2>Discovered Recipes</h2>
                     <KnowledgeBase statements={knowledgeBase}/>
                 </div>
-                <div className="instructional-message">
-                    <h2>Message</h2>
-                    <KnowledgeBase statements={receivedMessage}/>
-                </div>
+                {game.treatment.passMessages ?
+                    <div className="instructional-message">
+                        <h2>Message</h2>
+                        <KnowledgeBase statements={receivedMessage}/>
+                    </div>
+                : null}
             </div>
         )
     }

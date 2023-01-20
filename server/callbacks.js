@@ -49,9 +49,6 @@ const assignToChain = (round, treatment) => {
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
 Empirica.onGameStart(game => {
-  game.players.forEach(player => {
-    player.set("bonus", 0);
-  })
 });
 
 // onRoundStart is triggered before each round starts, and before onStageStart.
@@ -63,11 +60,14 @@ Empirica.onRoundStart((game, round) => {
     round.set("receivedMessage", practiceMessage)
   } else {
     // set up a main round
-    const chain = assignToChain(round, game.treatment);
-    round.set("chainIdx", chain["idx"]);
-    round.set("chainPosition", chain["nCompletions"]);
-    const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
-    round.set("receivedMessage", receivedMessage);
+    if (game.treatment.passMessages) {
+      const chain = assignToChain(round, game.treatment);
+      round.set("chainIdx", chain["idx"]);
+      round.set("chainPosition", chain["nCompletions"]);
+      const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
+      round.set("receivedMessage", receivedMessage);
+    }
+    round.set("canAbstract", game.treatment.canAbstract);
     round.set("bonus", 0);
     if (game.treatment.canAbstract) {
       round.set("sentMessage", [...Array(game.treatment.channelCapacity).keys()].map(x => null))
@@ -87,9 +87,10 @@ Empirica.onStageStart((game, round, stage) => {
       task = practiceTask;
     } else {
       task = tasks.filter(x => x._id === taskId)[0];
+      stage.set("episodeNum", stage.name.slice(-1));
     }
-    stage.set("task", task);
     const goal = task.validGoals[Math.floor(Math.random() * task.validGoals.length)];
+    stage.set("task", task);
     stage.set("goal", goal);
     stage.set("inventory", task["start"]);
     stage.set("bench", [null, null]);
@@ -102,9 +103,7 @@ Empirica.onStageStart((game, round, stage) => {
 Empirica.onStageEnd((game, round, stage) => {
   if (stage.name.slice(0,4) == "game") {
     if (stage.get("goalAchieved")) {
-      game.players.forEach(player => {
-        player.set("bonus", player.get("bonus") + game.treatment.goalBonus);
-      });
+      round.set("bonus", round.get("bonus") + game.treatment.goalBonus);
     }
   }
 });
@@ -116,7 +115,7 @@ Empirica.onRoundEnd((game, round) => {
   const chainIdx = round.get("chainIdx");
   const taskId = round.get("taskId");
   // if this isn't the practice round, update the chain
-  if (taskId != -1) {
+  if (taskId != -1 && game.treatment.passMessages) {
     updateMessageHistory(taskId, game.treatment.canAbstract, chainIdx, round.get("sentMessage"));
     completeChain(taskId, game.treatment.canAbstract, chainIdx);
   } 

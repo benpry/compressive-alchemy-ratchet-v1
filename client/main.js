@@ -26,10 +26,12 @@ Empirica.newPlayer(NewPlayer);
 // different instruction steps depending on the assigned treatment.
 Empirica.introSteps((game, treatment) => {
   const steps = [GeneralInstructions];
-  if (treatment.canAbstract) {
-    steps.push(MessagePassingWithAbstraction);
-  } else {
-    steps.push(MessagePassingNoAbstraction);
+  if (treatment.passMessages) {
+    if (treatment.canAbstract) {
+      steps.push(MessagePassingWithAbstraction);
+    } else {
+      steps.push(MessagePassingNoAbstraction);
+    }
   }
   steps.push(Quiz);
   return steps;
