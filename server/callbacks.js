@@ -68,13 +68,20 @@ Empirica.onRoundStart((game, round) => {
       const chain = assignToChain(round, game.treatment);
       round.set("chainIdx", chain["idx"]);
       round.set("chainPosition", chain["nCompletions"]);
-      const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [null, null, null, null, null];
+      const receivedMessage = chain["messageHistory"].length > 0 ? chain["messageHistory"][chain["messageHistory"].length - 1] : [];
       round.set("receivedMessage", receivedMessage);
+      const sentMessage = [...receivedMessage]
+      // set up the sent message
+      if (sentMessage.length < game.treatment.channelCapacity) {
+        for (let i = sentMessage.length; i < game.treatment.channelCapacity; i++) {
+          sentMessage.push(null)
+        }
+      }
+      round.set("sentMessage", sentMessage);
     }
     round.set("canAbstract", game.treatment.canAbstract);
     round.set("bonus", 0);
     // initialize the sent message to the received message
-    round.set("sentMessage", round.get("receivedMessage"))
   }
   round.set("task", task)
   round.set("knowledgeBase", []);
