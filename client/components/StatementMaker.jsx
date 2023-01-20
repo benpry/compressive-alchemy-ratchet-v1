@@ -1,9 +1,6 @@
 import React from "react";
 import { shape_paths } from "../../constants.js";
 
-const colorOptions = ["", "red", "green", "blue", "any"];
-const shapeOptions = ["", "triangle", "square", "pentagon", "anything"];
-
 export class StatementMaker extends React.Component {
 
   constructor(props) {
@@ -38,6 +35,15 @@ export class StatementMaker extends React.Component {
       yColor, yShape,
       zColor, zShape
     } = this.state;
+    const { canAbstract } = this.props;
+
+    const colorOptions = ["", "red", "green", "blue"];
+    const shapeOptions = ["", "triangle", "square", "pentagon"];
+
+    if (canAbstract) {
+      colorOptions.push("any");
+      shapeOptions.push("anything");
+    }
 
     const xC = (xColor == "any") ? "grey" : xColor;
     const xS = (xShape == "anything") ? "blob" : xShape;
@@ -45,7 +51,6 @@ export class StatementMaker extends React.Component {
     const yS = (yShape == "anything") ? "blob" : yShape;
     const zC = (zColor == "any") ? "grey" : zColor;
     const zS = (zShape == "anything") ? "blob" : zShape;
-    console.log(zS)
 
     return (
       <div className="statement-maker">
@@ -100,5 +105,4 @@ export class StatementMaker extends React.Component {
       </div>
     )
   }
-
 }

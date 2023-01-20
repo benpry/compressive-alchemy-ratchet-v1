@@ -22,18 +22,24 @@ export default class MessagePassingWithAbstraction extends React.Component {
                 so it is important to leave a helpful message.</li>
             </ul>
             <p>
-              Each statement specifies something about the shapes and colors of the inputs and outputs. You can specify specific shapes and colors...
+              Each statement specifies something about the shapes and colors of the inputs and outputs.
+              For example, the statement below says that crafting a red square and a green pentagon together (in that order)
+              produces a blue triangle.
             </p>
             <img src="specific-statement.png"/>
-            <p>
-              ...or if a color doesn't matter for a particular statement, you can use the "any" and "anything" options.
-            </p>
-            <img src="general-statement-1.png"/>
-            <p>
-              The above statement means "any triangle combined with a blue square makes a green triangle". The below statement means
-              "a blue pentagon combined with any shape of any color makes a green triangle".
-            </p>
-            <img src="general-statement-2.png"/>
+            {game.treatment.canAbstract ?
+             <div>
+                <p>
+                 If a color or shape doesn't matter for a particular statement, you can use the "any" and "anything" options.
+                </p>
+                <img src="general-statement-1.png"/>
+                <p>
+                  The above statement means "any triangle combined with a blue square makes a green triangle". The below statement means
+                  "a blue pentagon combined with any shape of any color makes a green triangle".
+                </p>
+                <img src="general-statement-2.png"/>
+             </div>
+             : null}
             <p>
               You <strong>must select a value for each drop-down</strong> in order for any statement to be sent.
             </p>

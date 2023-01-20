@@ -58,7 +58,6 @@ export default class CraftingGame extends React.Component {
     updateLog(actionType, item) {
         
         const { stage, round, game } = this.props;
-
         const inventory = stage.get("inventory");
         const bench = stage.get("bench");
         const log = stage.get("log");
@@ -81,7 +80,7 @@ export default class CraftingGame extends React.Component {
         const knowledgeStr = `${x["color"]} ${x["shape"]} + ${y["color"]} ${y["shape"]} -> ${z["color"]} ${z["shape"]}`
         if (!knowledgeBase.includes(knowledgeStr)) {
             knowledgeBase.push(knowledgeStr);
-            round.set("knowledgeBase", knowledgeBase)
+            round.set("knowledgeBase", knowledgeBase);
         }
     }
 
@@ -89,7 +88,6 @@ export default class CraftingGame extends React.Component {
 
         const { stage } = this.props;
         const inventory = stage.get("inventory");
-
         let newInventory = inventory.slice();
         // iterate over items
         items.map((item, i) => {
@@ -102,7 +100,7 @@ export default class CraftingGame extends React.Component {
                 });
             }
         })
-        stage.set("inventory", newInventory)
+        stage.set("inventory", newInventory);
     }
 
     removeFromInventory(itemIdxs) {
@@ -123,9 +121,9 @@ export default class CraftingGame extends React.Component {
             return
         }
 
-        const { stage } = this.props;
+        const { stage, round } = this.props;
         const { recipeFn } = this.state;
-        const task = stage.get("task");
+        const task = round.get("task");
 
         if (item1 === null || item2 === null) {
             this.setResponseMessage("Both crafting slots must be filled.");
@@ -185,8 +183,8 @@ export default class CraftingGame extends React.Component {
     }
 
     componentDidMount() {
-        const { stage } = this.props;
-        const task = stage.get("task");
+        const { round } = this.props;
+        const task = round.get("task");
         this.updateLog("start", null);
 
         const fns = taskFns[task["_id"].toString()]
@@ -199,7 +197,7 @@ export default class CraftingGame extends React.Component {
         const { game, round, stage } = this.props;
         const { responseMessage, cursorPos, craftFn } = this.state;
 
-        const task = stage.get("task");
+        const task = round.get("task");
         const bench = stage.get("bench");
         const goal = stage.get("goal");
         const inventory = stage.get("inventory");
@@ -221,12 +219,12 @@ export default class CraftingGame extends React.Component {
                     <h2>Discovered Recipes</h2>
                     <KnowledgeBase statements={knowledgeBase}/>
                 </div>
-                {game.treatment.passMessages ?
-                    <div className="instructional-message">
-                        <h2>Message</h2>
+                <div className="instructional-message">
+                    <h2>Message</h2>
+                    {game.treatment.passMessages ?
                         <KnowledgeBase statements={receivedMessage}/>
-                    </div>
-                : null}
+                     : null}
+                </div>
             </div>
         )
     }

@@ -91,19 +91,11 @@ Empirica.gameInit(game => {
       });
     }
     if (game.treatment.passMessages) {
-      if (game.treatment.canAbstract) {
         round.addStage({
           name: "composeMessage",
           displayName: "Send a Message",
           durationInSeconds: 9999999
         });
-      } else {
-        round.addStage({
-          name: "selectStatements",
-          displayName: "Send a Message",
-          durationInSeconds: 9999999
-        });
-      }
     }
     round.addStage({
       name: "postGame",

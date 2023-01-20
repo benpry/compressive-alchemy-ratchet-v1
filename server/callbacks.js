@@ -27,12 +27,12 @@ const updateMessageHistory = (taskId, canAbstract, chainIdx, message) => {
 const completeChain = (taskId, canAbstract, chainIdx) => {
   // get the chain
   const chain = ChainCollection.findOne({ taskId: taskId, canAbstract: canAbstract, idx: chainIdx })
-    ChainCollection.update(chain._id, {
-      $set: {
-        nCompletions: chain.nCompletions + 1,
-        busy: false
-      }
-    });
+  ChainCollection.update(chain._id, {
+    $set: {
+      nCompletions: chain.nCompletions + 1,
+      busy: false
+    }
+  });
 }
 
 const assignToChain = (round, treatment) => {
@@ -55,11 +55,15 @@ Empirica.onGameStart(game => {
 // It receives the same options as onGameStart, and the round that is starting.
 Empirica.onRoundStart((game, round) => {
   // assign the participant to a chain
-  if (round.get("taskId") == -1) {
+  let task;
+  const taskId = round.get("taskId");
+  if (taskId == -1) {
     // set up the practice round
     round.set("receivedMessage", practiceMessage)
+    task = practiceTask;
   } else {
     // set up a main round
+    task = tasks.filter(x => x._id === taskId)[0];
     if (game.treatment.passMessages) {
       const chain = assignToChain(round, game.treatment);
       round.set("chainIdx", chain["idx"]);
@@ -69,10 +73,9 @@ Empirica.onRoundStart((game, round) => {
     }
     round.set("canAbstract", game.treatment.canAbstract);
     round.set("bonus", 0);
-    if (game.treatment.canAbstract) {
-      round.set("sentMessage", [...Array(game.treatment.channelCapacity).keys()].map(x => null))
-    }
+    round.set("sentMessage", [...Array(game.treatment.channelCapacity).keys()].map(x => null))
   }
+  round.set("task", task)
   round.set("knowledgeBase", []);
 });
 
@@ -82,15 +85,11 @@ Empirica.onStageStart((game, round, stage) => {
   if (stage.name.slice(0,4) == "game") {
     // set up the task based on the id
     const taskId = round.get("taskId");
-    let task;
-    if (taskId == -1) {
-      task = practiceTask;
-    } else {
-      task = tasks.filter(x => x._id === taskId)[0];
+    if (taskId != -1) {
       stage.set("episodeNum", stage.name.slice(-1));
     }
+    const task = round.get("task");
     const goal = task.validGoals[Math.floor(Math.random() * task.validGoals.length)];
-    stage.set("task", task);
     stage.set("goal", goal);
     stage.set("inventory", task["start"]);
     stage.set("bench", [null, null]);

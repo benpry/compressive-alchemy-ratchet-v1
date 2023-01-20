@@ -39,6 +39,7 @@ export default class ComposeMessage extends React.Component {
 
     const receivedMessage = round.get("receivedMessage");
     const knowledgeBase = round.get("knowledgeBase");
+    const canAbstract = game.treatment.canAbstract;
 
     return (
       <div className="compose-message">
@@ -60,7 +61,7 @@ export default class ComposeMessage extends React.Component {
                   [...Array(game.treatment.channelCapacity).keys()].map(i => {
                     return (
                       <li key={i}>
-                        <StatementMaker updateFn={this.makeStatementUpdater(i)} />
+                        <StatementMaker canAbstract={canAbstract} updateFn={this.makeStatementUpdater(i)} />
                       </li>
                     )
                   })

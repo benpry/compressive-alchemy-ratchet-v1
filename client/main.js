@@ -7,8 +7,7 @@ import About from "./game/About";
 import Round from "./game/Round";
 import Consent from "./intro/Consent";
 import GeneralInstructions from "./intro/GeneralInstructions";
-import MessagePassingNoAbstraction from "./intro/MessagePassingNoAbstraction";
-import MessagePassingWithAbstraction from "./intro/MessagePassingWithAbstraction";
+import MessagePassing from "./intro/MessagePassing";
 import Quiz from "./intro/Quiz";
 import NewPlayer from "./intro/NewPlayer";
 
@@ -27,11 +26,7 @@ Empirica.newPlayer(NewPlayer);
 Empirica.introSteps((game, treatment) => {
   const steps = [GeneralInstructions];
   if (treatment.passMessages) {
-    if (treatment.canAbstract) {
-      steps.push(MessagePassingWithAbstraction);
-    } else {
-      steps.push(MessagePassingNoAbstraction);
-    }
+    steps.push(MessagePassing);
   }
   steps.push(Quiz);
   return steps;
