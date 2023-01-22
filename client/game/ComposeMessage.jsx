@@ -1,5 +1,4 @@
 import React from "react"
-
 import { Centered } from "meteor/empirica:core";
 import { Button } from "../components/Button.jsx";
 import { StatementMaker } from "../components/StatementMaker.jsx";
@@ -56,6 +55,11 @@ export default class ComposeMessage extends React.Component {
         <div className="flex-container">
             <div className="compose-message flex-child">
               <h1>Compose a Message</h1>
+              <p>
+                <strong>Remember</strong>: half of your bonus will come from the performance of the person who receives this message.
+                Review the knowledge above and think about the {game.treatment.channelCapacity} statements you can send
+                that would be most useful to the next person.
+              </p>
               <ul>
                 {
                   [...Array(game.treatment.channelCapacity).keys()].map(i => {

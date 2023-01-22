@@ -30,7 +30,7 @@ export default class MessagePassingWithAbstraction extends React.Component {
             {game.treatment.canAbstract ?
              <div>
                 <p>
-                 If a color or shape doesn't matter for a particular statement, you can use the "any" and "anything" options.
+                 If you want to convey an abstract rule, you can use the "any" and "anything" options.
                 </p>
                 <img src="general-statement-1.png"/>
                 <p>

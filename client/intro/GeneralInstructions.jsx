@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class InstructionStepOne extends React.Component {
+export default class GeneralInstructions extends React.Component {
   render() {
     const { hasPrev, hasNext, onNext, onPrev, game } = this.props;
 

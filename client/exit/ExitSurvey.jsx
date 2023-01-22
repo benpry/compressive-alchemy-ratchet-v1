@@ -33,7 +33,7 @@ export default class ExitSurvey extends React.Component {
     const { player } = this.props;
     const { age, gender, strength, fair, feedback, education } = this.state;
 
-    const bonus = Math.round(player.get("bonus")) / 100;
+    const bonus = Math.round(player.get("totalBonus") / 100);
 
     return (
       <Centered>

@@ -49,6 +49,9 @@ const assignToChain = (round, treatment) => {
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
 Empirica.onGameStart(game => {
+  game.players.forEach(player => {
+    player.set("totalBonus", 0)
+  })
 });
 
 // onRoundStart is triggered before each round starts, and before onStageStart.
@@ -125,6 +128,9 @@ Empirica.onRoundEnd((game, round) => {
   if (taskId != -1 && game.treatment.passMessages) {
     updateMessageHistory(taskId, game.treatment.canAbstract, chainIdx, round.get("sentMessage"));
     completeChain(taskId, game.treatment.canAbstract, chainIdx);
+    game.players.forEach(player => {
+      player.set("totalBonus", player.get("totalBonus") + round.get("bonus"));
+    });
   } 
 });
 
