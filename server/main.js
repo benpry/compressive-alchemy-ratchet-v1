@@ -2,7 +2,7 @@ import Empirica from "meteor/empirica:core";
 import "./bots.js";
 import "./callbacks.js";
 import { ChainCollection } from "./ChainCollection";
-import { tasks } from "../constants.js";
+import { taskIds } from "../constants.js";
 
 // like Python's range() function
 function range(start, stop) {
@@ -50,18 +50,18 @@ Meteor.publish("chains", function publishChains() {
 Empirica.gameInit(game => {
 
   // shuffle the tasks if specified
-  let finalTasks = tasks;
+  let finalTaskIds = taskIds;
   if (game.treatment.shuffleTasks) {
-    finalTasks = fyShuffle(finalTasks);
+    finalTaskIds = fyShuffle(finalTaskIds);
   }
 
   // if we have fewer than the specified number of chains, create enough
   const nChains = game.treatment.nChains;
   const canAbstract = game.treatment.canAbstract;
-  finalTasks.forEach(task => {
-    const currentNChains = ChainCollection.find({ taskId: task._id, canAbstract: canAbstract }).count();
+  finalTaskIds.forEach(taskId => {
+    const currentNChains = ChainCollection.find({ taskId: taskId, canAbstract: canAbstract }).count();
     if (currentNChains < nChains ) {
-      range(currentNChains, nChains).forEach(createTaskChain(task._id, canAbstract));
+      range(currentNChains, nChains).forEach(createTaskChain(taskId, canAbstract));
     }
   });
 
@@ -80,9 +80,9 @@ Empirica.gameInit(game => {
   });
 
   // create the rounds of the game
-  finalTasks.forEach(task => {
+  finalTaskIds.forEach(taskId => {
     const round = game.addRound();
-    round.set("taskId", task._id);
+    round.set("taskId", taskId);
     for (let i = 0; i < game.treatment.nEpisodes; i++) {
       round.addStage({
         name: `game${i}`,

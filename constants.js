@@ -8,7 +8,7 @@ export const shape_paths = {
     "hexagon": "M  0.0,-100.0 86.603,-50.0 86.603,50.0 0.0,100.0 -86.603,50.0 -86.603,-50.0 z"
 }
 
-export const all_items = [
+export const allItems = [
     {"color": "green", "shape": "triangle"},
     {"color": "green", "shape": "square"},
     {"color": "green", "shape": "pentagon"},
@@ -18,67 +18,6 @@ export const all_items = [
     {"color": "blue", "shape": "triangle"},
     {"color": "blue", "shape": "square"},
     {"color": "blue", "shape": "pentagon"},
-]
-
-
-export const tasks = [
-    {
-        "_id": 0,
-        "start": [
-            {'color': 'green', 'shape': 'square'},
-            {'color': 'green', 'shape': 'square'},
-            {'color': 'red', 'shape': 'triangle'},
-            {'color': 'red', 'shape': 'triangle'},
-            {'color': 'green', 'shape': 'triangle'},
-            {'color': 'green', 'shape': 'triangle'}
-        ],
-        "validGoals": [
-            {'color': 'green', 'shape': 'pentagon'},
-            {'color': 'red', 'shape': 'square'},
-            {'color': 'red', 'shape': 'pentagon'},
-            {'color': 'blue', 'shape': 'triangle'},
-            {'color': 'blue', 'shape': 'square'},
-            {'color': 'blue', 'shape': 'pentagon'}
-        ]
-    },
-    {
-        "_id": 1,
-        "start": [
-            {'color': 'red', 'shape': 'pentagon'},
-            {'color': 'red', 'shape': 'pentagon'},
-            {'color': 'red', 'shape': 'square'},
-            {'color': 'red', 'shape': 'square'},
-            {'color': 'green', 'shape': 'square'},
-            {'color': 'green', 'shape': 'square'}
-        ],
-        "validGoals": [
-            {'color': 'green', 'shape': 'triangle'},
-            {'color': 'green', 'shape': 'pentagon'},
-            {'color': 'red', 'shape': 'triangle'},
-            {'color': 'blue', 'shape': 'triangle'},
-            {'color': 'blue', 'shape': 'square'},
-            {'color': 'blue', 'shape': 'pentagon'}
-        ]
-    },
-    {
-        "_id": 2,
-        "start": [
-            {'color': 'blue', 'shape': 'square'},
-            {'color': 'blue', 'shape': 'square'},
-            {'color': 'green', 'shape': 'pentagon'},
-            {'color': 'green', 'shape': 'square'},
-            {'color': 'green', 'shape': 'square'},
-            {'color': 'green', 'shape': 'square'}
-        ],
-        "validGoals": [
-            {'color': 'green', 'shape': 'triangle'},
-            {'color': 'red', 'shape': 'triangle'},
-            {'color': 'red', 'shape': 'square'},
-            {'color': 'red', 'shape': 'pentagon'},
-            {'color': 'blue', 'shape': 'triangle'},
-            {'color': 'blue', 'shape': 'pentagon'}
-        ]
-    }
 ]
 
 export const practiceTask = {
@@ -101,11 +40,10 @@ export const practiceTask = {
             "shape": "pentagon"
         }
     ],
-    "validGoals": [
-        // practice goal is always blue triangle
-        {"color": "blue", "shape": "triangle"}
-    ]
+    "goal": {"color": "blue", "shape": "triangle"}
 }
+
+export const taskIds = [0, 1, 2]
 
 export const taskFns = {
     "-1": {

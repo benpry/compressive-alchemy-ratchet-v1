@@ -123,7 +123,6 @@ export default class CraftingGame extends React.Component {
 
         const { stage, round } = this.props;
         const { recipeFn } = this.state;
-        const task = round.get("task");
 
         if (item1 === null || item2 === null) {
             this.setResponseMessage("Both crafting slots must be filled.");
@@ -184,10 +183,10 @@ export default class CraftingGame extends React.Component {
 
     componentDidMount() {
         const { round } = this.props;
-        const task = round.get("task");
+        const taskId = round.get("taskId");
         this.updateLog("start", null);
 
-        const fns = taskFns[task["_id"].toString()]
+        const fns = taskFns[taskId.toString()]
 
         this.setState({"recipeFn": fns.recipeFn});
 
@@ -197,7 +196,6 @@ export default class CraftingGame extends React.Component {
         const { game, round, stage } = this.props;
         const { responseMessage, cursorPos, craftFn } = this.state;
 
-        const task = round.get("task");
         const bench = stage.get("bench");
         const goal = stage.get("goal");
         const inventory = stage.get("inventory");

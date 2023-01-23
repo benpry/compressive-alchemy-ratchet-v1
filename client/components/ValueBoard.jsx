@@ -1,5 +1,5 @@
 import React from "react"
-import { shape_paths, all_items } from "../../constants.js"
+import { shape_paths, allItems } from "../../constants.js"
 
 export class ValueBoard extends React.Component {
 
@@ -9,7 +9,7 @@ export class ValueBoard extends React.Component {
     return (
       <div className="value-board text-center">
         <ul className="inline-block">
-            {all_items.map((item, index) => {
+            {allItems.map((item, index) => {
                 return (
                 <li
                     className="border-opacity-20 border-solid rounded-md border-2 border-gray-500/50 mb-2"

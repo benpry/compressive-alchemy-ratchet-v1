@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { tasks, practiceTask, practiceMessage } from "../constants.js";
+import { tasks, practiceTask, practiceMessage, allItems } from "../constants.js";
 // imports for dealing with chains
 import { ChainCollection } from "./ChainCollection";
 
@@ -45,6 +45,28 @@ const assignToChain = (round, treatment) => {
   return assignedChain
 }
 
+// Fisher-Yates shuffle algorithm
+function fyShuffle(originalArray) {
+  const arr = originalArray.slice();
+  let i = arr.length;
+  while (--i > 0) {
+    let randIndex = Math.floor(Math.random() * (i + 1));
+    [arr[randIndex], arr[i]] = [arr[i], arr[randIndex]];
+  }
+  return arr;
+}
+
+const getStartState = (items) => {
+  const shuffledItems = fyShuffle(items);
+  const startingInventory = shuffledItems.slice(0, 3);
+  const goal = shuffledItems[3];
+  // add three more random items from the starting inventory
+  for (let i = 0; i < 3; i++) {
+    startingInventory.push(shuffledItems[Math.floor(Math.random() * 3)]);
+  }
+  return [fyShuffle(startingInventory), goal];
+}
+
 // onGameStart is triggered opnce per game before the game starts, and before
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
@@ -58,15 +80,12 @@ Empirica.onGameStart(game => {
 // It receives the same options as onGameStart, and the round that is starting.
 Empirica.onRoundStart((game, round) => {
   // assign the participant to a chain
-  let task;
   const taskId = round.get("taskId");
   if (taskId == -1) {
     // set up the practice round
     round.set("receivedMessage", practiceMessage)
-    task = practiceTask;
   } else {
     // set up a main round
-    task = tasks.filter(x => x._id === taskId)[0];
     if (game.treatment.passMessages) {
       const chain = assignToChain(round, game.treatment);
       round.set("chainIdx", chain["idx"]);
@@ -86,7 +105,6 @@ Empirica.onRoundStart((game, round) => {
     round.set("bonus", 0);
     // initialize the sent message to the received message
   }
-  round.set("task", task)
   round.set("knowledgeBase", []);
 });
 
@@ -96,13 +114,17 @@ Empirica.onStageStart((game, round, stage) => {
   if (stage.name.slice(0,4) == "game") {
     // set up the task based on the id
     const taskId = round.get("taskId");
+    let startingInventory;
+    let goal;
     if (taskId != -1) {
       stage.set("episodeNum", stage.name.slice(-1));
+      [startingInventory, goal] = getStartState(allItems);
+    } else {
+      startingInventory = practiceTask["start"];
+      goal = practiceTask["goal"];
     }
-    const task = round.get("task");
-    const goal = task.validGoals[Math.floor(Math.random() * task.validGoals.length)];
     stage.set("goal", goal);
-    stage.set("inventory", task["start"]);
+    stage.set("inventory", startingInventory);
     stage.set("bench", [null, null]);
     stage.set("log", []);
   }
