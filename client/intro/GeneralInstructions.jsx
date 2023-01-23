@@ -26,12 +26,13 @@ export default class GeneralInstructions extends React.Component {
               <li>The order of resources on the bench matters: placing the same two items in a different order might produce something different.</li>
             </ul>
             <p>
-              The game ends when you either produce your goal item or have only one item left in your inventory and can't craft anymore.
+              You will complete <strong>four games</strong>, each with different recipes and starting resources.
+              You will complete <strong>{game.treatment.nEpisodes} "episodes"</strong> of each game.
+              Each episode of a game will have the same recipes, but a <strong>random goal</strong> {" "}
+              and <strong>random starting items</strong>.
             </p>
             <p>
-              You will complete <strong>three games</strong>, each with different recipes and starting resources.
-              You will complete <strong>{game.treatment.nEpisodes} "episodes"</strong> of the game, where your starting items and recipes will be the same,
-              but you might have different goals.
+              The episode ends when you either produce your goal item or have only one item left in your inventory and can't craft anymore.
             </p>
             <p>You will earn a <strong>bonus of {game.treatment.goalBonus}¢</strong> for every goal you accomplish.</p>
             <p>Scroll down to see an example of the interface, then click "Next" to move on.</p>

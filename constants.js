@@ -43,7 +43,7 @@ export const practiceTask = {
     "goal": {"color": "blue", "shape": "triangle"}
 }
 
-export const taskIds = [0, 1, 2]
+export const taskIds = [0, 1, 2, 3]
 
 export const taskFns = {
     "-1": {
@@ -76,22 +76,29 @@ export const taskFns = {
     "0": {
         "_id": 0,
         recipeFn(x1, x2) {
-            const recipes = {'red': {'red': {'color': 'blue', 'shape': 'square'}, 'green': {'color': 'blue', 'shape': 'pentagon'}, 'blue': {'color': 'red', 'shape': 'triangle'}}, 'green': {'red': {'color': 'red', 'shape': 'square'}, 'green': {'color': 'green', 'shape': 'square'}, 'blue': {'color': 'green', 'shape': 'pentagon'}}, 'blue': {'red': {'color': 'blue', 'shape': 'triangle'}, 'green': {'color': 'red', 'shape': 'pentagon'}, 'blue': {'color': 'green', 'shape': 'triangle'}}}
+            const recipes = {'red': {'red': {'color': 'blue', 'shape': 'pentagon'}, 'green': {'color': 'blue', 'shape': 'square'}, 'blue': {'color': 'green', 'shape': 'triangle'}}, 'green': {'red': {'color': 'green', 'shape': 'pentagon'}, 'green': {'color': 'blue', 'shape': 'triangle'}, 'blue': {'color': 'red', 'shape': 'square'}}, 'blue': {'red': {'color': 'red', 'shape': 'triangle'}, 'green': {'color': 'red', 'shape': 'pentagon'}, 'blue': {'color': 'green', 'shape': 'square'}}}
             return recipes[x1["color"]][x2["color"]];
         }
     },
     "1": {
         "_id": 1,
         recipeFn(x1, x2) {
-            const recipes = {'triangle': {'triangle': {'color': 'green', 'shape': 'square'}, 'square': {'color': 'blue', 'shape': 'pentagon'}, 'pentagon': {'color': 'blue', 'shape': 'triangle'}}, 'square': {'triangle': {'color': 'blue', 'shape': 'square'}, 'square': {'color': 'red', 'shape': 'square'}, 'pentagon': {'color': 'red', 'shape': 'triangle'}}, 'pentagon': {'triangle': {'color': 'green', 'shape': 'pentagon'}, 'square': {'color': 'green', 'shape': 'triangle'}, 'pentagon': {'color': 'red', 'shape': 'pentagon'}}}
-            return recipes[x1["shape"]][x2["shape"]];
+            const recipes = {'red': {'red': {'color': 'green', 'shape': 'pentagon'}, 'green': {'color': 'blue', 'shape': 'pentagon'}, 'blue': {'color': 'green', 'shape': 'triangle'}}, 'green': {'red': {'color': 'blue', 'shape': 'triangle'}, 'green': {'color': 'red', 'shape': 'triangle'}, 'blue': {'color': 'blue', 'shape': 'square'}}, 'blue': {'red': {'color': 'red', 'shape': 'square'}, 'green': {'color': 'red', 'shape': 'pentagon'}, 'blue': {'color': 'green', 'shape': 'square'}}}
+            return recipes[x1["color"]][x2["color"]];
         }
     },
     "2": {
         "_id": 2,
         recipeFn(x1, x2) {
-            const recipes = {'red': {'triangle': {'color': 'blue', 'shape': 'pentagon'}, 'square': {'color': 'blue', 'shape': 'triangle'}, 'pentagon': {'color': 'green', 'shape': 'square'}}, 'green': {'triangle': {'color': 'blue', 'shape': 'square'}, 'square': {'color': 'green', 'shape': 'triangle'}, 'pentagon': {'color': 'red', 'shape': 'square'}}, 'blue': {'triangle': {'color': 'green', 'shape': 'pentagon'}, 'square': {'color': 'red', 'shape': 'triangle'}, 'pentagon': {'color': 'red', 'shape': 'pentagon'}}}
-            return recipes[x1["color"]][x1["shape"]];
+            const recipes = {'triangle': {'triangle': {'color': 'red', 'shape': 'pentagon'}, 'square': {'color': 'green', 'shape': 'square'}, 'pentagon': {'color': 'blue', 'shape': 'square'}}, 'square': {'triangle': {'color': 'blue', 'shape': 'pentagon'}, 'square': {'color': 'red', 'shape': 'triangle'}, 'pentagon': {'color': 'green', 'shape': 'pentagon'}}, 'pentagon': {'triangle': {'color': 'red', 'shape': 'square'}, 'square': {'color': 'blue', 'shape': 'triangle'}, 'pentagon': {'color': 'green', 'shape': 'triangle'}}}
+            return recipes[x1["shape"]][x2["shape"]];
+        }
+    },
+    "3": {
+        "_id": 3,
+        recipeFn(x1, x2) {
+            const recipes = {'triangle': {'triangle': {'color': 'blue', 'shape': 'pentagon'}, 'square': {'color': 'red', 'shape': 'triangle'}, 'pentagon': {'color': 'green', 'shape': 'square'}}, 'square': {'triangle': {'color': 'green', 'shape': 'pentagon'}, 'square': {'color': 'red', 'shape': 'pentagon'}, 'pentagon': {'color': 'green', 'shape': 'triangle'}}, 'pentagon': {'triangle': {'color': 'blue', 'shape': 'square'}, 'square': {'color': 'blue', 'shape': 'triangle'}, 'pentagon': {'color': 'red', 'shape': 'square'}}}
+            return recipes[x1["shape"]][x2["shape"]];
         }
     }
 }

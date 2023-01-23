@@ -22,6 +22,10 @@ export default class MessagePassingWithAbstraction extends React.Component {
                 so it is important to leave a helpful message.</li>
             </ul>
             <p>
+              You will most likely discover more than {game.treatment.channelCapacity} recipes while you play the game, so you need to think
+              carefully about what statements to send to be most helpful to the next participant.
+            </p>
+            <p>
               Each statement specifies something about the shapes and colors of the inputs and outputs.
               For example, the statement below says that crafting a red square and a green pentagon together (in that order)
               produces a blue triangle.
